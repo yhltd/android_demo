@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class BaseDao<T> {
             stringBuffer.append(SERVER_NAME);
             stringBuffer.append(":1433/");
             stringBuffer.append(DATABASE_NAME);
-            stringBuffer.append(";charset=utf8");
+            stringBuffer.append(";characterEncoding=utf8");
             conn = DriverManager.getConnection(stringBuffer.toString(), USER_NAME, PASSWORD);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -55,9 +57,11 @@ public class BaseDao<T> {
         try {
             list = new ArrayList<>();
             preparedStatement = conn.prepareStatement(sql);
-            for (int i = 0; i < params.length; i++) {
+
+            if(params != null) for (int i = 0; i < params.length; i++) {
                 preparedStatement.setString(i + 1, params[i].toString());
             }
+
             resultSet = preparedStatement.executeQuery();
 
             Field[] fields = tClass.getDeclaredFields();
@@ -66,7 +70,7 @@ public class BaseDao<T> {
                 for (Field field : fields) {
                     field.setAccessible(true);
                     Object obj = resultSet.getObject(StringUtils.humpToLine(field.getName()));
-                    field.set(entity, StringUtils.cast(obj));
+                    if(obj != null) field.set(entity, dateTime(StringUtils.cast(obj), field));
                 }
                 list.add(entity);
             }
@@ -83,9 +87,11 @@ public class BaseDao<T> {
         int result = 0;
         try {
             preparedStatement = conn.prepareStatement(sql);
-            for (int i = 0; i < params.length; i++) {
+
+            if(params != null) for (int i = 0; i < params.length; i++) {
                 preparedStatement.setString(i + 1, params[i].toString());
             }
+
             result = preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (Exception e) {
@@ -94,6 +100,15 @@ public class BaseDao<T> {
             close();
         }
         return result > 0;
+    }
+
+    private Object dateTime(Object obj, Field field){
+        switch (field.getType().getName()){
+            case "java.time.LocalDateTime":
+                DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                obj = LocalDateTime.parse(obj.toString(), df);
+        }
+        return obj;
     }
 
     public void close() {

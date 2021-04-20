@@ -20,16 +20,41 @@
             android:name=".activity.LoginActivity"
             android:label="登录">
             <intent-filter>
-
-                <!-- 表明这是入口文件 -->
                 <action android:name="android.intent.action.MAIN" />
-                <!-- 表明该Activity是LAUNCHER类型，会显示在程序列表中 -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.UserActivity" />
-        <activity android:name=".activity.AdminActivity" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:label="@string/action_register">
+            <intent-filter>
+                <action android:name="android.intent.action.registerAactivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.AdminActivity"
+            android:label="@string/main">
+            <intent-filter>
+                <action android:name="android.intent.action.adminActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.UserActivity"
+            android:label="@string/main">
+            <intent-filter>
+                <action android:name="android.intent.action.userActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.UserManagerActivity"
+            android:label="@string/admin_user_manager">
+            <intent-filter>
+                <action android:name="android.intent.action.userManagerActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
-
 </manifest>

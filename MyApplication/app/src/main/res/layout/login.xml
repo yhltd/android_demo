@@ -9,27 +9,27 @@
 
 
     <LinearLayout
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/user_code"
+            android:id="@+id/login_user_code"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/prompt_user_code"
+            android:hint="@string/user_code"
             android:inputType="text"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/prompt_password"
+            android:hint="@string/user_password"
             android:inputType="textPassword"/>
     </LinearLayout>
 
@@ -48,6 +48,7 @@
             tools:ignore="MissingConstraints"/>
 
         <Button
+            android:id="@+id/action_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="72dp"

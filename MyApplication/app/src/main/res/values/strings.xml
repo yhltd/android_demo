@@ -1,7 +1,23 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="prompt_user_code">用户名</string>
-    <string name="prompt_password">密码</string>
+
+    <string name="user_code">用户名</string>
+    <string name="user_name">姓名</string>
+    <string name="user_password">密码</string>
+    <string name="user_password_again">确认密码</string>
+    <string name="user_phone">手机号</string>
+
     <string name="action_sign_in">登录</string>
     <string name="action_register">注册</string>
+
+    <string name="submit">提交</string>
+
+    <string name="main">首页</string>
+    <string name="admin_user_manager">员工信息管理</string>
+    <string name="admin_user_work">员工考勤</string>
+    <string name="admin_user_register">注册审核</string>
+    <string name="admin_user_examine">工程计量人工结算</string>
+    <string name="admin_user_finish">员工结付申请</string>
+
+
 </resources>

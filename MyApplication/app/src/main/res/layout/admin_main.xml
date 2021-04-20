@@ -7,13 +7,80 @@
     tools:context=".activity.AdminActivity"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="欢迎admin">
-
-    </TextView>
-
-
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="start">
+        <TextView
+            android:id="@+id/user_manager"
+            android:text="@string/admin_user_manager"
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry">
+        </TextView>
+        <TextView
+            android:id="@+id/user_work"
+            android:text="@string/admin_user_work"
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry">
+        </TextView>
+        <TextView
+            android:id="@+id/register"
+            android:text="@string/admin_user_register"
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry">
+        </TextView>
+        <TextView
+            android:id="@+id/examine"
+            android:text="@string/admin_user_examine"
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry">
+        </TextView>
+        <TextView
+            android:id="@+id/finish"
+            android:text="@string/admin_user_finish"
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry">
+        </TextView>
+    </LinearLayout>
 </LinearLayout>
