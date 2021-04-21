@@ -4,6 +4,24 @@ import java.time.LocalDateTime;
 
 public class UserInfo {
 
+    public UserInfo(){}
+
+    public UserInfo(UserInfo userInfo){
+        this.id = userInfo.getId();
+        this.userCode = userInfo.getUserCode();
+        this.userName = userInfo.getUserName();
+        this.pwd = userInfo.getPwd();
+        this.power = userInfo.getPower();
+        this.isUser = userInfo.getIsUser();
+        this.phoneNumber = userInfo.getPhoneNumber();
+        this.address = userInfo.getAddress();
+        this.bankCode = userInfo.getBankCode();
+        this.bankAddress = userInfo.getBankAddress();
+        this.entryTime = userInfo.getEntryTime();
+        this.idCode = userInfo.getIdCode();
+        this.projectId = userInfo.getProjectId();
+    }
+
     private int id;
 
     private String userCode;

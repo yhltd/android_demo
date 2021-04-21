@@ -10,6 +10,15 @@ public class EmployeeInfo {
 
     private String bankImage;
 
+    private String idImageReverse;
+
+    private String bankImageReverse;
+
+    private int typeId;
+
+    private String contractDoc;
+
+
     public int getId() {
         return id;
     }
@@ -40,5 +49,37 @@ public class EmployeeInfo {
 
     public void setBankImage(String bankImage) {
         this.bankImage = bankImage;
+    }
+
+    public String getIdImageReverse() {
+        return idImageReverse;
+    }
+
+    public void setIdImageReverse(String idImageReverse) {
+        this.idImageReverse = idImageReverse;
+    }
+
+    public String getBankImageReverse() {
+        return bankImageReverse;
+    }
+
+    public void setBankImageReverse(String bankImageReverse) {
+        this.bankImageReverse = bankImageReverse;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getContractDoc() {
+        return contractDoc;
+    }
+
+    public void setContractDoc(String contractDoc) {
+        this.contractDoc = contractDoc;
     }
 }

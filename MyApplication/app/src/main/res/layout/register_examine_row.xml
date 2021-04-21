@@ -7,22 +7,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/manager_user_code"
+        android:id="@+id/examine_user_name"
         android:paddingLeft="15dp"
         android:textColor="@color/main_text"
         android:textSize="16sp"
-        android:text="@string/user_code"/>
+        android:text="@string/user_name"/>
     <View
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1">
     </View>
-    <TextView
+    <Button
+        android:text="审核"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/manager_user_name"
-        android:paddingRight="15dp"
-        android:textColor="@color/main_text"
-        android:textSize="16sp"
-        android:text="@string/user_code"/>
+        android:layout_marginRight="15dp"
+        android:onClick="onSubmitClick"
+        tools:ignore="OnClick">
+    </Button>
 </LinearLayout>

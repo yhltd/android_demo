@@ -6,7 +6,7 @@ import com.dai.myapplication.entity.UserInfo;
 
 public class MyApplication extends Application {
 
-    private static UserInfo userInfo;
+    private UserInfo userInfo;
 
     public UserInfo getUserInfo(){
         return userInfo;

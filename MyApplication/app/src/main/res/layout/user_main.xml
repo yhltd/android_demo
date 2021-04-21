@@ -4,16 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.UserActivity"
+    tools:context=".activity.AdminActivity"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="欢迎user">
-
-    </TextView>
-
-
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="start">
+        <TextView
+            android:id="@+id/user_info"
+            android:text="@string/user_info"
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry" />
+        <TextView
+            android:id="@+id/contract_doc"
+            android:text="@string/contract_doc"
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
 </LinearLayout>

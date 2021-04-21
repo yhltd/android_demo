@@ -1,6 +1,9 @@
 package com.dai.myapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,5 +15,14 @@ public class UserActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_main);
+
+        TextView userInfoView = findViewById(R.id.user_info);
+        userInfoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, UserInfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

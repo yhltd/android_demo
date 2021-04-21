@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.UserInfoActivity"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/info_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_name"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/info_user_code"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_code"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/info_password"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_password"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/info_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_phone"
+            android:inputType="phone"/>
+
+        <Spinner
+            android:id="@+id/info_type"
+            android:spinnerMode="dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_type"
+            android:prompt="@string/user_type"/>
+
+        <EditText
+            android:id="@+id/info_id_code"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_id_code"
+            android:inputType="number"
+            android:digits="0123456789Xx"/>
+
+        <EditText
+            android:id="@+id/info_bank_code"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_bank_code"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/info_bank_address"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/user_bank_address"
+            android:inputType="text"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/info_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            tools:ignore="MissingConstraints"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/info_id_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_check"
+            tools:ignore="MissingConstraints"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>

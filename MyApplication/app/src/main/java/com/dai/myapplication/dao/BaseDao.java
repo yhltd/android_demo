@@ -69,8 +69,12 @@ public class BaseDao<T> {
                 T entity = tClass.newInstance();
                 for (Field field : fields) {
                     field.setAccessible(true);
-                    Object obj = resultSet.getObject(StringUtils.humpToLine(field.getName()));
-                    if(obj != null) field.set(entity, dateTime(StringUtils.cast(obj), field));
+                    String columnName = StringUtils.humpToLine(field.getName());
+
+                    if(isExistsColumn(resultSet, columnName)){
+                        Object obj = resultSet.getObject(columnName);
+                        if(obj != null) field.set(entity, typeHandle(StringUtils.cast(obj), field));
+                    }
                 }
                 list.add(entity);
             }
@@ -86,10 +90,10 @@ public class BaseDao<T> {
     public boolean execute(String sql, Object... params) {
         int result = 0;
         try {
-            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             if(params != null) for (int i = 0; i < params.length; i++) {
-                preparedStatement.setString(i + 1, params[i].toString());
+                preparedStatement.setString(i + 1, params[i] != null ? params[i].toString() : "");
             }
 
             result = preparedStatement.executeUpdate();
@@ -102,11 +106,50 @@ public class BaseDao<T> {
         return result > 0;
     }
 
-    private Object dateTime(Object obj, Field field){
+    public long executeOfId(String sql, Object... params){
+        long result = 0;
+        try {
+            preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            if(params != null) for (int i = 0; i < params.length; i++) {
+                preparedStatement.setString(i + 1, params[i] != null ? params[i].toString() : "");
+            }
+
+            result = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                result = rs.getLong(1);
+            }
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    private boolean isExistsColumn(ResultSet rs, String columnName){
+        try{
+            if (rs.findColumn(columnName) > 0 ) {
+                return true;
+            }
+        }catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
+
+    private Object typeHandle(Object obj, Field field){
+        System.out.println(field.getType().getName());
         switch (field.getType().getName()){
             case "java.time.LocalDateTime":
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 obj = LocalDateTime.parse(obj.toString(), df);
+                break;
+            case "java.lang.String" :
+                obj = obj.toString();
+                break;
         }
         return obj;
     }

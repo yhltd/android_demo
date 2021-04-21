@@ -1,19 +1,13 @@
 package com.dai.myapplication.activity;
 
-import android.annotation.SuppressLint;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceActivity;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ListAdapter;
-
 import com.dai.myapplication.R;
-import com.dai.myapplication.adapter.UserManagerAdapter;
 import com.dai.myapplication.entity.UserInfo;
 import com.dai.myapplication.service.UserInfoService;
 import com.dai.myapplication.utils.StringUtils;
@@ -49,7 +43,7 @@ public class UserManagerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 userInfoService = new UserInfoService();
-                list = userInfoService.selectUsers();
+                list = userInfoService.selectUsers(true);
 
                 List<HashMap<String, Object>> data = new ArrayList<>();
                 for (int i = 0; i < list.size(); i++) {
@@ -64,7 +58,6 @@ public class UserManagerActivity extends AppCompatActivity {
                         new String[]{"userCode", "userName"},
                         new int[]{R.id.manager_user_code, R.id.manager_user_name});
 
-                //通知主线程处理ListView
                 Message msg = new Message();
                 msg.obj = adapter;
                 listLoadHandler.sendMessage(msg);

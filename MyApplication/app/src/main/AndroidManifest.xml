@@ -56,5 +56,39 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ExamineActivity"
+            android:label="@string/admin_user_register">
+            <intent-filter>
+                <action android:name="android.intent.action.examineActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ExamineSubmitActivity"
+            android:label="@string/admin_user_register">
+            <intent-filter>
+                <action android:name="android.intent.action.examineSubmitActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.UserInfoActivity"
+            android:label="@string/user_info">
+            <intent-filter>
+                <action android:name="android.intent.action.userInfoActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.UserIdCheckActivity"
+            android:label="@string/id_check">
+            <intent-filter>
+                <action android:name="android.intent.action.userIdCheckActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

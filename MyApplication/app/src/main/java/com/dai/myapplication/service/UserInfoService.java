@@ -1,9 +1,5 @@
 package com.dai.myapplication.service;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import com.dai.myapplication.dao.BaseDao;
 import com.dai.myapplication.entity.UserInfo;
 
@@ -33,11 +29,42 @@ public class UserInfoService {
                 userInfo.getPower());
     }
 
-    public List<UserInfo> selectUsers() {
-
-        String sql = "select * from user_info where is_user > 0";
+    public boolean registerUser(UserInfo userInfo){
+        String sql = "update user_info set user_code = ?,pwd = ?,phone_number = ?,project_id = ?,entry_time = ?,is_user = '1' where id = ?";
         base = new BaseDao();
-        List<UserInfo> uList = base.query(UserInfo.class, sql);
-        return uList != null && uList.size() > 0 ? uList : null;
+        return base.execute(sql,
+                userInfo.getUserCode(),
+                userInfo.getPwd(),
+                userInfo.getPhoneNumber(),
+                userInfo.getProjectId(),
+                userInfo.getEntryTime(),
+                userInfo.getId());
+    }
+
+    public List<UserInfo> selectUsers(boolean isUser) {
+
+        String sql = "select * from user_info where is_user " + (isUser ? ">" : "=") + " 0";
+        base = new BaseDao();
+        return base.query(UserInfo.class, sql);
+    }
+
+    public boolean delete(int id){
+        String sql = "delete from user_info where id = ?";
+        base = new BaseDao();
+        return base.execute(sql, id);
+    }
+
+    public boolean update(UserInfo userInfo){
+        String sql = "update user_info set user_name = ?,user_code = ?,pwd = ?,phone_number = ?,bank_code = ?," +
+                "bank_address = ?,id_code = ? where id = ?";
+        base = new BaseDao();
+        return base.execute(sql, userInfo.getUserName(),
+                userInfo.getUserCode(),
+                userInfo.getPwd(),
+                userInfo.getPhoneNumber(),
+                userInfo.getBankCode(),
+                userInfo.getBankAddress(),
+                userInfo.getIdCode(),
+                userInfo.getId());
     }
 }

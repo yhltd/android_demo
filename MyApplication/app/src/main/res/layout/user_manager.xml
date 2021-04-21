@@ -7,15 +7,15 @@
     tools:context=".activity.UserManagerActivity"
     android:orientation="vertical">
 
-    <NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="350dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:fitsSystemWindows="true"
-        android:menu="@menu/user_manager_menu">
+<!--    <NavigationView-->
+<!--        android:id="@+id/navigation_view"-->
+<!--        android:layout_width="350dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="left"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        android:menu="@menu/user_manager_menu">-->
 
-    </NavigationView>
+<!--    </NavigationView>-->
 
     <ListView
         android:id="@+id/user_manager_list"
