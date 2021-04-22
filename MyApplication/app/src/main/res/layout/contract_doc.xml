@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ContractActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border_bottom"
+        android:gravity="start">
+        <ImageView
+            android:src="@drawable/contract_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp">
+        </ImageView>
+        <TextView
+            android:id="@+id/user_info"
+            android:text="@string/contract_name"
+            android:layout_height="65dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/main_text"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/download"
+            android:text="@string/download_contract"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:onClick="onDownLoadClick"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/upload"
+            android:text="@string/upload_contract"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:onClick="onUpLoadClick"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

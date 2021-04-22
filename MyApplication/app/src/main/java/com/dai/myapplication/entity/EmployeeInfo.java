@@ -16,7 +16,7 @@ public class EmployeeInfo {
 
     private int typeId;
 
-    private String contractDoc;
+    private byte contractDoc;
 
 
     public int getId() {
@@ -75,11 +75,11 @@ public class EmployeeInfo {
         this.typeId = typeId;
     }
 
-    public String getContractDoc() {
+    public byte getContractDoc() {
         return contractDoc;
     }
 
-    public void setContractDoc(String contractDoc) {
+    public void setContractDoc(byte contractDoc) {
         this.contractDoc = contractDoc;
     }
 }

@@ -31,4 +31,8 @@
     <string name="id_check">身份验证</string>
 
     <string name="open_album">打开相册</string>
+
+    <string name="upload_contract">上传我的合同书</string>
+    <string name="download_contract">下载模版</string>
+    <string name="contract_name">农民工劳动合同书范本</string>
 </resources>

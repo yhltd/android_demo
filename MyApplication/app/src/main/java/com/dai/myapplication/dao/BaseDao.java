@@ -8,6 +8,8 @@ import androidx.annotation.RequiresApi;
 
 import com.dai.myapplication.utils.StringUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.Proxy;
 import java.sql.Connection;
@@ -46,6 +48,7 @@ public class BaseDao<T> {
             stringBuffer.append(":1433/");
             stringBuffer.append(DATABASE_NAME);
             stringBuffer.append(";characterEncoding=utf8");
+            stringBuffer.append(";useLOBs=false");
             conn = DriverManager.getConnection(stringBuffer.toString(), USER_NAME, PASSWORD);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -58,7 +61,7 @@ public class BaseDao<T> {
             list = new ArrayList<>();
             preparedStatement = conn.prepareStatement(sql);
 
-            if(params != null) for (int i = 0; i < params.length; i++) {
+            if (params != null) for (int i = 0; i < params.length; i++) {
                 preparedStatement.setString(i + 1, params[i].toString());
             }
 
@@ -71,9 +74,10 @@ public class BaseDao<T> {
                     field.setAccessible(true);
                     String columnName = StringUtils.humpToLine(field.getName());
 
-                    if(isExistsColumn(resultSet, columnName)){
+                    if (isExistsColumn(resultSet, columnName)) {
                         Object obj = resultSet.getObject(columnName);
-                        if(obj != null) field.set(entity, typeHandle(StringUtils.cast(obj), field));
+                        if (obj != null)
+                            field.set(entity, typeHandle(StringUtils.cast(obj), field));
                     }
                 }
                 list.add(entity);
@@ -87,12 +91,35 @@ public class BaseDao<T> {
         }
     }
 
+    public byte[] queryFile(String sql, Object... params) {
+        try {
+            preparedStatement = conn.prepareStatement(sql);
+
+            if (params != null) for (int i = 0; i < params.length; i++) {
+                preparedStatement.setInt(i + 1, StringUtils.cast(params[i]));
+            }
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                return resultSet.getBytes("contract_doc");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+
+        return null;
+    }
+
     public boolean execute(String sql, Object... params) {
         int result = 0;
         try {
             preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            if(params != null) for (int i = 0; i < params.length; i++) {
+            if (params != null) for (int i = 0; i < params.length; i++) {
                 preparedStatement.setString(i + 1, params[i] != null ? params[i].toString() : "");
             }
 
@@ -106,12 +133,12 @@ public class BaseDao<T> {
         return result > 0;
     }
 
-    public long executeOfId(String sql, Object... params){
+    public long executeOfId(String sql, Object... params) {
         long result = 0;
         try {
             preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            if(params != null) for (int i = 0; i < params.length; i++) {
+            if (params != null) for (int i = 0; i < params.length; i++) {
                 preparedStatement.setString(i + 1, params[i] != null ? params[i].toString() : "");
             }
 
@@ -129,25 +156,44 @@ public class BaseDao<T> {
         return result;
     }
 
-    private boolean isExistsColumn(ResultSet rs, String columnName){
-        try{
-            if (rs.findColumn(columnName) > 0 ) {
+    public boolean updateFile(String sql, int id, InputStream inputStream) {
+        int result = 0;
+
+        try {
+            preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setBinaryStream(1, inputStream, inputStream.available());
+            preparedStatement.setInt(2, id);
+
+            result = preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+
+        return result > 0;
+    }
+
+    private boolean isExistsColumn(ResultSet rs, String columnName) {
+        try {
+            if (rs.findColumn(columnName) > 0) {
                 return true;
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             return false;
         }
         return false;
     }
 
-    private Object typeHandle(Object obj, Field field){
-        System.out.println(field.getType().getName());
-        switch (field.getType().getName()){
+    private Object typeHandle(Object obj, Field field) {
+        switch (field.getType().getName()) {
             case "java.time.LocalDateTime":
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 obj = LocalDateTime.parse(obj.toString(), df);
                 break;
-            case "java.lang.String" :
+            case "java.lang.String":
                 obj = obj.toString();
                 break;
         }

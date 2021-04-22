@@ -4,14 +4,24 @@ import com.dai.myapplication.dao.BaseDao;
 import com.dai.myapplication.entity.EmployeeInfo;
 import com.dai.myapplication.utils.StringUtils;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 public class EmployeeInfoService {
 
     private BaseDao baseDao;
 
+    public EmployeeInfo getOne(int id){
+        String sql = "select id,user_id,id_image,id_image_reverse,type_id from employee_info where id = ?";
+
+        baseDao = new BaseDao();
+        List<EmployeeInfo> list = baseDao.query(EmployeeInfo.class, sql, id);
+        return list != null && list.size() > 0 ? list.get(0) : null;
+    }
+
     public EmployeeInfo getOneByUserId(int userId) {
-        String sql = "select * from employee_info where user_id = ?";
+        String sql = "select id,type_id,user_id from employee_info where user_id = ?";
 
         baseDao = new BaseDao();
         List<EmployeeInfo> list = baseDao.query(EmployeeInfo.class, sql, userId);
@@ -47,5 +57,20 @@ public class EmployeeInfoService {
                 employeeInfo.getBankImageReverse(),
                 employeeInfo.getTypeId(),
                 employeeInfo.getId());
+    }
+
+    public boolean updateFile(InputStream inputStream, int id){
+        String sql = "update employee_info set contract_doc = ? where id = ?";
+
+        baseDao = new BaseDao();
+        return baseDao.updateFile(sql, id, inputStream);
+    }
+
+    public byte[] selectFile(int userId){
+        String sql = "select top 1 contract_doc from employee_type where id = " +
+                "(select top 1 type_id from employee_info where user_id = ?)";
+
+        baseDao = new BaseDao();
+        return baseDao.queryFile(sql, userId);
     }
 }

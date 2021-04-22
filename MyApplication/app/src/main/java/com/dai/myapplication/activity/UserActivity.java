@@ -24,5 +24,14 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView contractView = findViewById(R.id.contract_doc);
+        contractView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, ContractActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
