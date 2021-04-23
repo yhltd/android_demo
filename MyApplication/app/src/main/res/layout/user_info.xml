@@ -1,133 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.UserInfoActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.UserInfoActivity">
 
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-        <EditText
-            android:id="@+id/info_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_name"
-            android:inputType="text"/>
 
-        <EditText
-            android:id="@+id/info_user_code"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_code"
-            android:inputType="text"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/info_password"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_password"
-            android:inputType="text"/>
+            <EditText
+                android:id="@+id/info_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_name"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/info_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_phone"
-            android:inputType="phone"/>
+            <Spinner
+                android:id="@+id/info_sex"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:entries="@array/sex"
+                android:hint="@string/user_sex"
+                android:prompt="@string/user_sex"
+                android:spinnerMode="dropdown" />
 
-        <Spinner
-            android:id="@+id/info_type"
-            android:spinnerMode="dropdown"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_type"
-            android:prompt="@string/user_type"/>
+            <EditText
+                android:id="@+id/info_user_code"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_code"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/info_id_code"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_id_code"
-            android:inputType="number"
-            android:digits="0123456789Xx"/>
+            <EditText
+                android:id="@+id/info_password"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_password"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/info_bank_code"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_bank_code"
-            android:inputType="number"/>
+            <EditText
+                android:id="@+id/info_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_phone"
+                android:inputType="phone" />
 
-        <EditText
-            android:id="@+id/info_bank_address"
+            <EditText
+                android:id="@+id/info_address"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_address"
+                android:inputType="text" />
+
+            <Spinner
+                android:id="@+id/info_type"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_type"
+                android:prompt="@string/user_type"
+                android:spinnerMode="dropdown" />
+
+            <EditText
+                android:id="@+id/info_grade"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_grade"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/info_number"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_number"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/info_id_code"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:digits="0123456789Xx"
+                android:hint="@string/user_id_code"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/info_bank_code"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_bank_code"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/info_bank_address"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_bank_address"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/info_contract_number"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_contract_number"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_bank_address"
-            android:inputType="text"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/info_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/info_id_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/id_check"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_weight="1" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/info_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            tools:ignore="MissingConstraints"/>
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/info_id_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/id_check"
-            tools:ignore="MissingConstraints"/>
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

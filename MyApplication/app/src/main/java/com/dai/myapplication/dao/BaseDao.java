@@ -3,6 +3,7 @@ package com.dai.myapplication.dao;
 import android.os.Build;
 import android.transition.Transition;
 import android.transition.TransitionValues;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -188,6 +189,7 @@ public class BaseDao<T> {
     }
 
     private Object typeHandle(Object obj, Field field) {
+        Log.d("fieldName", field.getType().getName());
         switch (field.getType().getName()) {
             case "java.time.LocalDateTime":
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -195,6 +197,9 @@ public class BaseDao<T> {
                 break;
             case "java.lang.String":
                 obj = obj.toString();
+                break;
+            case "float":
+                obj = Float.parseFloat(obj.toString());
                 break;
         }
         return obj;

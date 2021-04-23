@@ -1,5 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="55dp"
     android:orientation="horizontal"
@@ -7,22 +7,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/examine_user_name"
+        android:id="@+id/work_type"
         android:paddingLeft="15dp"
         android:textColor="@color/main_text"
         android:textSize="16sp"
-        android:text="@string/user_name"/>
+        android:text="@string/user_type"/>
     <View
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1">
     </View>
-    <Button
-        android:text="审核"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:onClick="onSubmitClick"
-        tools:ignore="OnClick">
-    </Button>
+        android:id="@+id/work_team_name"
+        android:paddingRight="15dp"
+        android:textColor="@color/main_text"
+        android:textSize="16sp"
+        android:text="@string/user_code"/>
 </LinearLayout>

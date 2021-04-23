@@ -42,9 +42,14 @@ public class UserInfoActivity extends AppCompatActivity {
     private Map<String, Integer> nameMap;
 
     private EditText userNameEdit;
+    private Spinner sexSpinner;
+    private EditText gradeEdit;
+    private EditText numberEdit;
+    private EditText contractNumberEdit;
     private EditText userCodeEdit;
     private EditText passwordEdit;
     private EditText phoneNumberEdit;
+    private EditText addressEdit;
     private Spinner typeSpinner;
     private EditText idCodeEdit;
     private EditText bankCodeEdit;
@@ -62,6 +67,9 @@ public class UserInfoActivity extends AppCompatActivity {
         //姓名
         userNameEdit = findViewById(R.id.info_user_name);
         userNameEdit.setText(userInfo.getUserName());
+        //性别
+        sexSpinner = findViewById(R.id.info_sex);
+        sexSpinner.setSelection(userInfo.getSex() == null ? 0 : userInfo.getSex().equals("女") ? 1 : 0);
         //用户名
         userCodeEdit = findViewById(R.id.info_user_code);
         userCodeEdit.setText(userInfo.getUserCode());
@@ -71,12 +79,24 @@ public class UserInfoActivity extends AppCompatActivity {
         //手机号码
         phoneNumberEdit = findViewById(R.id.info_phone_number);
         phoneNumberEdit.setText(userInfo.getPhoneNumber());
+        //地址
+        addressEdit = findViewById(R.id.info_address);
+        addressEdit.setText(userInfo.getAddress());
         //工种
         typeSpinner = findViewById(R.id.info_type);
         setEmployeeInfo(employeeInfoHandler());
+        //等级
+        gradeEdit = findViewById(R.id.info_grade);
+        gradeEdit.setText(userInfo.getGrade());
+        //岗位证书
+        numberEdit = findViewById(R.id.info_number);
+        numberEdit.setText(userInfo.getNumber());
         //身份证号
         idCodeEdit = findViewById(R.id.info_id_code);
         idCodeEdit.setText(userInfo.getIdCode());
+        //合同编号
+        contractNumberEdit = findViewById(R.id.info_contract_number);
+        contractNumberEdit.setText(userInfo.getContractNumber());
         //银行卡号
         bankCodeEdit = findViewById(R.id.info_bank_code);
         bankCodeEdit.setText(userInfo.getBankCode());
@@ -232,6 +252,20 @@ public class UserInfoActivity extends AppCompatActivity {
             userInfo.setUserCode(userCodeEdit.getText().toString());
         }
 
+        if (gradeEdit.getText().toString().equals("")) {
+//            ToastUtil.show(UserInfoActivity.this, "请输入等级");
+//            return false;
+        } else {
+            userInfo.setGrade(gradeEdit.getText().toString());
+        }
+
+        if (numberEdit.getText().toString().equals("")) {
+//            ToastUtil.show(UserInfoActivity.this, "请输入岗位证书/编号");
+//            return false;
+        } else {
+            userInfo.setNumber(numberEdit.getText().toString());
+        }
+
         if (passwordEdit.getText().toString().equals("")) {
             ToastUtil.show(UserInfoActivity.this, "请输入密码");
             return false;
@@ -246,11 +280,25 @@ public class UserInfoActivity extends AppCompatActivity {
             userInfo.setPhoneNumber(phoneNumberEdit.getText().toString());
         }
 
+        if (addressEdit.getText().toString().equals("")) {
+//            ToastUtil.show(UserInfoActivity.this, "请输入地址");
+//            return false;
+        } else {
+            userInfo.setAddress(addressEdit.getText().toString());
+        }
+
         if (idCodeEdit.getText().toString().equals("")) {
             ToastUtil.show(UserInfoActivity.this, "请输入身份证号");
             return false;
         } else {
             userInfo.setIdCode(idCodeEdit.getText().toString());
+        }
+
+        if (contractNumberEdit.getText().toString().equals("")) {
+//            ToastUtil.show(UserInfoActivity.this, "请输入合同编号");
+//            return false;
+        } else {
+            userInfo.setContractNumber(contractNumberEdit.getText().toString());
         }
 
         if (bankCodeEdit.getText().toString().equals("")) {
@@ -273,6 +321,7 @@ public class UserInfoActivity extends AppCompatActivity {
             employeeInfo.setUserId(userInfo.getId());
         }
         employeeInfo.setTypeId(nameMap.get(typeName));
+        userInfo.setSex(sexSpinner.getSelectedItem().toString());
 
         return true;
     }

@@ -90,7 +90,7 @@ public class ContractActivity extends AppCompatActivity {
                 if (msg.what == 1 && msg.obj != null) {
                     File file = (File) msg.obj;
                     ToastUtil.show(ContractActivity.this,
-                            "下载成功：" + file.getPath(),
+                            "下载成功：" + filePath,
                             5000);
                 } else {
                     ToastUtil.show(ContractActivity.this, "管理员未上传合同书");
@@ -119,35 +119,38 @@ public class ContractActivity extends AppCompatActivity {
         }).start();
     }
 
+    private String filePath;
+
     private File downLoadFile(byte[] bytes) {
-        //写入路径
-        String path = null;
-        try {
-            path = Environment.getExternalStorageDirectory().getCanonicalPath() + "/"
-                    + getString(R.string.app_name) + "/Contract/";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String fileName = getString(R.string.contract_name) + System.currentTimeMillis() + ".docx";
-        //创建File对象，其中包含文件所在的目录以及文件的命名
-        File file = new File(path, fileName);
+        //全路径文件
+        File file = null;
+        //写入文件名
+        String fileName = getString(R.string.contract_name) + "-" + System.currentTimeMillis() + ".docx";
+        //实际写入路径
+        filePath = getString(R.string.app_name) + "/Contract/" + fileName;
         // 创建FileOutputStream对象
         FileOutputStream outputStream = null;
-
         InputStream inputStream = null;
-
         try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
+            //写入路径
+            String path = Environment.getExternalStorageDirectory().getCanonicalPath() + "/"
+                    + getString(R.string.app_name) + "/Contract/";
+            //创建路径
+            File pathFile = new File(path);
+            if(!pathFile.exists()){
+                pathFile.mkdirs();
             }
+            //全路径文件
+            file = new File(path, fileName);
+            //创建一个空文件
+            file.createNewFile();
             outputStream = new FileOutputStream(file);
             inputStream = new ByteArrayInputStream(bytes);
 
-            byte[] buff = new byte[1024];
-            int len = 0;
-            while ((len = inputStream.read(buff)) != -1) {
-                outputStream.write(buff, 0, len);
+            byte[] buffer = new byte[4 * 1024];
+            while (inputStream.read(buffer) != -1) {
+                outputStream.write(buffer);
+                outputStream.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,7 +164,6 @@ public class ContractActivity extends AppCompatActivity {
                 }
             }
         }
-
         return file;
     }
 

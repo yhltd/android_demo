@@ -45,6 +45,8 @@ public class UserManagerActivity extends AppCompatActivity {
                 userInfoService = new UserInfoService();
                 list = userInfoService.selectUsers(true);
 
+                if(list == null) return;
+
                 List<HashMap<String, Object>> data = new ArrayList<>();
                 for (int i = 0; i < list.size(); i++) {
                     HashMap<String, Object> item = new HashMap<>();

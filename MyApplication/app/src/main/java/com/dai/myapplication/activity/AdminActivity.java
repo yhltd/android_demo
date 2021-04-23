@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ViewUtils;
 
 import com.dai.myapplication.R;
+import com.dai.myapplication.entity.WorkExamine;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -31,6 +32,15 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminActivity.this, ExamineActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView examine = findViewById(R.id.examine);
+        examine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this, WorkExamineActivity.class);
                 startActivity(intent);
             }
         });

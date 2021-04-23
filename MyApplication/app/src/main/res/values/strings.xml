@@ -3,14 +3,20 @@
 
     <string name="user_code">用户名</string>
     <string name="user_name">姓名</string>
+    <string name="user_sex">性别</string>
     <string name="user_password">密码</string>
     <string name="user_password_again">确认密码</string>
     <string name="user_phone">手机号</string>
+    <string name="user_address">地址</string>
     <string name="user_project">所属项目</string>
     <string name="user_type">工种</string>
+    <string name="user_grade">等级</string>
+    <string name="user_number">岗位证书/编号</string>
     <string name="user_id_code">身份证号码</string>
+    <string name="user_d">开户行</string>
     <string name="user_bank_code">银行卡号码</string>
     <string name="user_bank_address">开户行</string>
+    <string name="user_contract_number">劳动合同编号</string>
 
     <string name="action_sign_in">登录</string>
     <string name="action_register">注册</string>
@@ -35,4 +41,16 @@
     <string name="upload_contract">上传我的合同书</string>
     <string name="download_contract">下载模版</string>
     <string name="contract_name">农民工劳动合同书范本</string>
+
+    <string name="work_team_name">队组名称</string>
+    <string name="work_unit">计量单位</string>
+    <string name="work_plan">合同计划工程量</string>
+    <string name="work_actual">实际完成工程量</string>
+    <string name="work_price">劳务单价</string>
+    <string name="work_finish_price">应结算金额</string>
+
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
 </resources>

@@ -10,7 +10,7 @@ public class EmployeeTypeService {
     private BaseDao baseDao;
 
     public List<EmployeeType> nameArray(){
-        String sql = "select id,name from employee_type";
+        String sql = "select id,name from employee_type order by name";
         baseDao = new BaseDao();
         return baseDao.query(EmployeeType.class, sql);
     }

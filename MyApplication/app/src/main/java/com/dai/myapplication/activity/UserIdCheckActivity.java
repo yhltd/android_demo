@@ -3,12 +3,14 @@ package com.dai.myapplication.activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +47,9 @@ public class UserIdCheckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_id_check);
         getSupportActionBar().setTitle("正在加载...");
+
+        Button saveBtn = findViewById(R.id.id_check_save);
+        saveBtn.setOnClickListener(onSaveClick());
 
         Intent intent = getIntent();
         employeeInfo = GsonUtil.toEntity(intent.getStringExtra("employee_info"), EmployeeInfo.class);
@@ -110,40 +115,53 @@ public class UserIdCheckActivity extends AppCompatActivity {
         }
     }
 
-    public void onSaveClick(View v) {
-
-        try {
-            idImageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),
-                    StringUtils.cast(idImageView.getTag()));
-            idImageReverseBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),
-                    StringUtils.cast(idReverseImageView.getTag()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (idImageBitmap == null || idImageBitmap.equals("")) {
-            ToastUtil.show(UserIdCheckActivity.this, "请选择身份证正面照片");
-            return;
-        }
-
-        if (idImageReverseBitmap == null && idImageReverseBitmap.equals("")) {
-            ToastUtil.show(UserIdCheckActivity.this, "请选择身份证反面照片");
-            return;
-        }
-
-        employeeInfo.setIdImage(BitmapUtil.bitmapToBase64(idImageBitmap));
-        employeeInfo.setIdImageReverse(BitmapUtil.bitmapToBase64(idImageReverseBitmap));
-
-        new Thread(new Runnable() {
+    public View.OnClickListener onSaveClick() {
+        return new View.OnClickListener() {
             @Override
-            public void run() {
-                if (employeeInfoService.update(employeeInfo)) {
-                    ToastUtil.show(UserIdCheckActivity.this, "保存成功");
-                } else {
-                    ToastUtil.show(UserIdCheckActivity.this, "保存失败，请稍后再试");
+            public void onClick(View v) {
+                try {
+                    if (idImageView.getTag() == null) {
+                        idImageBitmap = ((BitmapDrawable) ((ImageView) idImageView).getDrawable()).getBitmap();
+                    } else {
+                        idImageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),
+                                StringUtils.cast(idImageView.getTag()));
+                    }
+
+                    if (idReverseImageView.getTag() == null) {
+                        idImageReverseBitmap = ((BitmapDrawable) ((ImageView) idReverseImageView).getDrawable()).getBitmap();
+                    } else {
+                        idImageReverseBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),
+                                StringUtils.cast(idReverseImageView.getTag()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                ToastUtil.loop();
+
+                if (idImageBitmap == null || idImageBitmap.equals("")) {
+                    ToastUtil.show(UserIdCheckActivity.this, "请选择身份证正面照片");
+                    return;
+                }
+
+                if (idImageReverseBitmap == null && idImageReverseBitmap.equals("")) {
+                    ToastUtil.show(UserIdCheckActivity.this, "请选择身份证反面照片");
+                    return;
+                }
+
+                employeeInfo.setIdImage(BitmapUtil.bitmapToBase64(idImageBitmap));
+                employeeInfo.setIdImageReverse(BitmapUtil.bitmapToBase64(idImageReverseBitmap));
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (employeeInfoService.update(employeeInfo)) {
+                            ToastUtil.show(UserIdCheckActivity.this, "保存成功");
+                        } else {
+                            ToastUtil.show(UserIdCheckActivity.this, "保存失败，请稍后再试");
+                        }
+                        ToastUtil.loop();
+                    }
+                }).start();
             }
-        }).start();
+        };
     }
 }

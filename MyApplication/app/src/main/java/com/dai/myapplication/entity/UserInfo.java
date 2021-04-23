@@ -10,8 +10,11 @@ public class UserInfo {
         this.id = userInfo.getId();
         this.userCode = userInfo.getUserCode();
         this.userName = userInfo.getUserName();
+        this.sex = userInfo.getSex();
         this.pwd = userInfo.getPwd();
         this.power = userInfo.getPower();
+        this.grade = userInfo.getGrade();
+        this.number = userInfo.getNumber();
         this.isUser = userInfo.getIsUser();
         this.phoneNumber = userInfo.getPhoneNumber();
         this.address = userInfo.getAddress();
@@ -20,6 +23,7 @@ public class UserInfo {
         this.entryTime = userInfo.getEntryTime();
         this.idCode = userInfo.getIdCode();
         this.projectId = userInfo.getProjectId();
+        this.contractNumber = userInfo.getContractNumber();
     }
 
     private int id;
@@ -28,7 +32,13 @@ public class UserInfo {
 
     private String userName;
 
+    private String sex;
+
     private String pwd;
+
+    private String grade;
+
+    private String number;
 
     private int power;
 
@@ -48,6 +58,39 @@ public class UserInfo {
 
     private int projectId;
 
+    private String contractNumber;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
+    }
 
     public int getId() {
         return id;
