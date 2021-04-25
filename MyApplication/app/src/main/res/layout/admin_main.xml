@@ -24,6 +24,7 @@
             android:text="@string/admin_user_manager"
             android:textColor="@color/main_text"
             android:textSize="20sp"
+            android:background="@drawable/border_bottom"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -38,6 +39,7 @@
             android:text="@string/admin_user_work"
             android:textColor="@color/main_text"
             android:textSize="20sp"
+            android:background="@drawable/border_bottom"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -52,6 +54,7 @@
             android:text="@string/admin_user_register"
             android:textColor="@color/main_text"
             android:textSize="20sp"
+            android:background="@drawable/border_bottom"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -66,6 +69,7 @@
             android:text="@string/admin_user_examine"
             android:textColor="@color/main_text"
             android:textSize="20sp"
+            android:background="@drawable/border_bottom"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -80,6 +84,7 @@
             android:text="@string/admin_user_finish"
             android:textColor="@color/main_text"
             android:textSize="20sp"
+            android:background="@drawable/border_bottom"
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
 

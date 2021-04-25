@@ -49,6 +49,12 @@
     <string name="work_price">劳务单价</string>
     <string name="work_finish_price">应结算金额</string>
 
+    <string name="finish_day_num">出勤工日/完成工程量</string>
+    <string name="finish_day_price">日工资/单价</string>
+    <string name="finish_sum">工资总额</string>
+    <string name="finish_time">结算日期</string>
+    <string name="finish_last_update_time">最后修改日期</string>
+
     <string-array name="sex">
         <item>男</item>
         <item>女</item>

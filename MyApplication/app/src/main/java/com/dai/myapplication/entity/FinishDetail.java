@@ -1,8 +1,9 @@
 package com.dai.myapplication.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
-public class FinishDetail {
+public class FinishDetail{
 
     private int id;
 
@@ -14,8 +15,11 @@ public class FinishDetail {
 
     private float dayPrice;
 
-    private LocalDateTime finishTime;
+    private Date finishTime;
 
+    private Date lastFinishTime;
+
+    private int projectId;
 
     public int getId() {
         return id;
@@ -57,11 +61,27 @@ public class FinishDetail {
         this.dayPrice = dayPrice;
     }
 
-    public LocalDateTime getFinishTime() {
+    public Date getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(LocalDateTime finishTime) {
+    public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public Date getLastFinishTime() {
+        return lastFinishTime;
+    }
+
+    public void setLastFinishTime(Date lastFinishTime) {
+        this.lastFinishTime = lastFinishTime;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 }

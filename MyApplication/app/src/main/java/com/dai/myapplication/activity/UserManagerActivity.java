@@ -7,6 +7,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.dai.myapplication.MyApplication;
 import com.dai.myapplication.R;
 import com.dai.myapplication.entity.UserInfo;
 import com.dai.myapplication.service.UserInfoService;
@@ -18,6 +20,8 @@ import java.util.List;
 
 public class UserManagerActivity extends AppCompatActivity {
 
+    private UserInfo userInfo;
+
     private UserInfoService userInfoService;
 
     private List<UserInfo> list;
@@ -28,6 +32,9 @@ public class UserManagerActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_manager);
+
+        MyApplication myApplication = (MyApplication) getApplication();
+        userInfo = myApplication.getUserInfo();
 
         listView = findViewById(R.id.user_manager_list);
 
@@ -43,7 +50,7 @@ public class UserManagerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 userInfoService = new UserInfoService();
-                list = userInfoService.selectUsers(true);
+                list = userInfoService.selectUsers(true, userInfo.getProjectId());
 
                 if(list == null) return;
 

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.TestLooperManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dai.myapplication.MyApplication;
 import com.dai.myapplication.R;
 import com.dai.myapplication.entity.ProjectInfo;
 import com.dai.myapplication.entity.UserInfo;
@@ -29,6 +27,7 @@ import com.dai.myapplication.utils.ToastUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -181,7 +180,7 @@ public class ExamineSubmitActivity extends AppCompatActivity {
 
         String pName = projectSpinner.getSelectedItem().toString();
         userInfo.setProjectId(nameMap.get(pName));
-        userInfo.setEntryTime(LocalDateTime.now());
+        userInfo.setEntryTime(new Date());
         return true;
     }
 }

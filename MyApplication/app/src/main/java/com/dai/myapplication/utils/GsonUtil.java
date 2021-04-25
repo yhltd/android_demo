@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -82,6 +83,19 @@ public class GsonUtil {
     }
 
     /**
+     * 将传入的对象传换成Json的形式返回
+     *
+     * @param object    传入要转换的数据
+     * @param isHasDate 是否有时间类型的字段
+     * @return 转换成功的Json字符串
+     */
+    public static String toJson(Object object, boolean isHasDate) {
+        if (!isHasDate) return toJson(object);
+
+        return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(object);
+    }
+
+    /**
      * 将初始化的json信息返回
      *
      * @return 返回的json信息
@@ -136,14 +150,14 @@ public class GsonUtil {
      * @param <T>    泛型
      * @return
      */
-    public static <T> List<T> toList(String json, Class<T> tClass){
+    public static <T> List<T> toList(String json, Class<T> tClass) {
         List<T> list = new ArrayList<>();
-        try{
+        try {
             JsonArray array = new JsonParser().parse(json).getAsJsonArray();
             for (final JsonElement elem : array) {
                 list.add(StringUtils.cast(toEntity(elem.toString(), tClass)));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
         return list;

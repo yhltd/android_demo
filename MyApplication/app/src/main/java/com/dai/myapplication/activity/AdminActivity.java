@@ -44,5 +44,14 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView finish = findViewById(R.id.finish);
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this, FinishActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -9,16 +9,16 @@ public class FinishDetailService {
 
     private BaseDao baseDao;
 
-    public List<FinishDetail> list(){
-        String sql = "select * from finish_detail order by user_name";
+    public List<FinishDetail> list(int projectId){
+        String sql = "select * from finish_detail where project_id = ? order by user_name";
 
         baseDao = new BaseDao();
-        return baseDao.query(FinishDetail.class, sql);
+        return baseDao.query(FinishDetail.class, sql, projectId);
     }
 
     public boolean save(FinishDetail finishDetail){
-        String sql = "insert into finish_detail(user_name,type_name,day_num,day_price,finish_time)" +
-                "values(?,?,?,?,?)";
+        String sql = "insert into finish_detail(user_name,type_name,day_num,day_price,finish_time,last_update_time,project_id)" +
+                "values(?,?,?,?,?,?,?)";
 
         baseDao = new BaseDao();
         long result = baseDao.executeOfId(sql,
@@ -26,15 +26,17 @@ public class FinishDetailService {
                 finishDetail.getTypeName(),
                 finishDetail.getDayNum(),
                 finishDetail.getDayPrice(),
-                finishDetail.getFinishTime());
+                finishDetail.getFinishTime(),
+                finishDetail.getLastFinishTime(),
+                finishDetail.getProjectId());
 
         finishDetail.setId(Integer.parseInt(Long.toString(result)));
         return result > 0;
     }
 
     public boolean update(FinishDetail finishDetail){
-        String sql = "update finish_detail set user_name = ?,type_name = ?,day_num = ?,day_price = ? " +
-                "finish_time = ? where id = ?";
+        String sql = "update finish_detail set user_name = ?,type_name = ?,day_num = ?,day_price = ?," +
+                "finish_time = ?,last_update_time = ? where id = ?";
 
         baseDao = new BaseDao();
         return baseDao.execute(sql,
@@ -43,6 +45,7 @@ public class FinishDetailService {
                 finishDetail.getDayNum(),
                 finishDetail.getDayPrice(),
                 finishDetail.getFinishTime(),
+                finishDetail.getLastFinishTime(),
                 finishDetail.getId());
     }
 

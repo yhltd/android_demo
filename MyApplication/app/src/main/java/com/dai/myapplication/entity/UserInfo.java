@@ -1,6 +1,7 @@
 package com.dai.myapplication.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class UserInfo {
 
@@ -52,7 +53,7 @@ public class UserInfo {
 
     private String bankAddress;
 
-    private LocalDateTime entryTime;
+    private Date entryTime;
 
     private String idCode;
 
@@ -172,11 +173,11 @@ public class UserInfo {
         this.bankAddress = bankAddress;
     }
 
-    public LocalDateTime getEntryTime() {
+    public Date getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(LocalDateTime entryTime) {
+    public void setEntryTime(Date entryTime) {
         this.entryTime = entryTime;
     }
 

@@ -10,11 +10,11 @@ public class WorkExamineService {
 
     private BaseDao baseDao;
 
-    public List<WorkExamine> list() {
-        String sql = "select * from work_examine";
+    public List<WorkExamine> list(int projectId) {
+        String sql = "select * from work_examine where project_id = ?";
 
         baseDao = new BaseDao();
-        return baseDao.query(WorkExamine.class, sql);
+        return baseDao.query(WorkExamine.class, sql, projectId);
     }
 
     public boolean save(WorkExamine workExamine) {

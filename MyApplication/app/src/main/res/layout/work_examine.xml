@@ -29,6 +29,5 @@
         app:backgroundTintMode="add"
         app:pressedTranslationZ="10dp"
         app:tint="@color/white"
-        app:backgroundTint="@color/primary"
-        android:contentDescription="@string/submit" />
+        app:backgroundTint="@color/primary"/>
 </LinearLayout>

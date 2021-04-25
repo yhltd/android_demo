@@ -1,8 +1,7 @@
 package com.dai.myapplication.dao;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
-import android.transition.Transition;
-import android.transition.TransitionValues;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -12,16 +11,16 @@ import com.dai.myapplication.utils.StringUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.net.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BaseDao<T> {
@@ -78,7 +77,7 @@ public class BaseDao<T> {
                     if (isExistsColumn(resultSet, columnName)) {
                         Object obj = resultSet.getObject(columnName);
                         if (obj != null)
-                            field.set(entity, typeHandle(StringUtils.cast(obj), field));
+                            field.set(entity, handlerResult(StringUtils.cast(obj), field));
                     }
                 }
                 list.add(entity);
@@ -121,7 +120,9 @@ public class BaseDao<T> {
             preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             if (params != null) for (int i = 0; i < params.length; i++) {
-                preparedStatement.setString(i + 1, params[i] != null ? params[i].toString() : "");
+                preparedStatement.setString(i + 1, params[i] != null ?
+                        handlerParam(params[i]) :
+                        "");
             }
 
             result = preparedStatement.executeUpdate();
@@ -140,13 +141,15 @@ public class BaseDao<T> {
             preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             if (params != null) for (int i = 0; i < params.length; i++) {
-                preparedStatement.setString(i + 1, params[i] != null ? params[i].toString() : "");
+                preparedStatement.setString(i + 1, params[i] != null ?
+                        handlerParam(params[i]) :
+                        "");
             }
 
             result = preparedStatement.executeUpdate();
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()) {
-                result = rs.getLong(1);
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                result = resultSet.getLong(1);
             }
             preparedStatement.close();
         } catch (Exception e) {
@@ -177,6 +180,38 @@ public class BaseDao<T> {
         return result > 0;
     }
 
+    private String handlerParam(Object obj){
+        String tName = obj.getClass().getName();
+        if ("java.util.Date".equals(obj.getClass().getName())) {
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            obj = simpleDateFormat.format((Date) obj);
+        }
+        return obj.toString();
+    }
+
+    private Object handlerResult(Object obj, Field field) {
+        Log.d("fieldName", field.getType().getName());
+        try {
+            switch (field.getType().getName()) {
+                case "java.util.Date":
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    obj = simpleDateFormat.parse(obj.toString());
+                    break;
+                case "java.lang.String":
+                    obj = obj.toString();
+                    break;
+                case "float":
+                    obj = Float.parseFloat(obj.toString());
+                    break;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
     private boolean isExistsColumn(ResultSet rs, String columnName) {
         try {
             if (rs.findColumn(columnName) > 0) {
@@ -186,23 +221,6 @@ public class BaseDao<T> {
             return false;
         }
         return false;
-    }
-
-    private Object typeHandle(Object obj, Field field) {
-        Log.d("fieldName", field.getType().getName());
-        switch (field.getType().getName()) {
-            case "java.time.LocalDateTime":
-                DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                obj = LocalDateTime.parse(obj.toString(), df);
-                break;
-            case "java.lang.String":
-                obj = obj.toString();
-                break;
-            case "float":
-                obj = Float.parseFloat(obj.toString());
-                break;
-        }
-        return obj;
     }
 
     public void close() {

@@ -4,7 +4,6 @@ import com.dai.myapplication.dao.BaseDao;
 import com.dai.myapplication.entity.EmployeeInfo;
 import com.dai.myapplication.utils.StringUtils;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class EmployeeInfoService {
                 employeeInfo.getBankImageReverse(),
                 employeeInfo.getTypeId());
         if (result > 0) {
-            employeeInfo.setId(StringUtils.cast(result));
+            employeeInfo.setId(Integer.parseInt(Long.toString(result)));
             return true;
         } else {
             return false;

@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dai.myapplication.MyApplication;
 import com.dai.myapplication.R;
+import com.dai.myapplication.entity.UserInfo;
 import com.dai.myapplication.entity.WorkExamine;
 import com.dai.myapplication.service.WorkExamineService;
 import com.dai.myapplication.utils.GsonUtil;
@@ -26,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class WorkExamineActivity extends AppCompatActivity {
+    
+    private UserInfo userInfo;
 
     private final static int REQUEST_CODE_CHANG = 100;
 
@@ -39,6 +43,9 @@ public class WorkExamineActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.work_examine);
+
+        MyApplication myApplication = (MyApplication) getApplication();
+        userInfo = myApplication.getUserInfo();
 
         workExamineService = new WorkExamineService();
 
@@ -68,7 +75,7 @@ public class WorkExamineActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                list = workExamineService.list();
+                list = workExamineService.list(userInfo.getProjectId());
 
                 SimpleAdapter adapter = null;
 

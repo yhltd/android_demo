@@ -4,21 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Trace;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dai.myapplication.MyApplication;
 import com.dai.myapplication.R;
+import com.dai.myapplication.entity.EmployeeType;
 import com.dai.myapplication.entity.WorkExamine;
+import com.dai.myapplication.service.EmployeeTypeService;
 import com.dai.myapplication.service.WorkExamineService;
 import com.dai.myapplication.utils.GsonUtil;
 import com.dai.myapplication.utils.StringUtils;
 import com.dai.myapplication.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkExamineChangeActivity extends AppCompatActivity {
 
@@ -26,7 +34,7 @@ public class WorkExamineChangeActivity extends AppCompatActivity {
 
     private WorkExamine workExamine;
 
-    private EditText tNameEdit;
+    private Spinner tNameSpinner;
     private EditText teamNameEdit;
     private EditText unitEdit;
     private EditText planEdit;
@@ -62,14 +70,57 @@ public class WorkExamineChangeActivity extends AppCompatActivity {
         }
     }
 
+    private void setTNameArray(String tName) {
+        getSupportActionBar().setTitle("正在加载...");
+
+        Handler tNameHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                getSupportActionBar().setTitle(R.string.admin_user_examine);
+
+                List<EmployeeType> typeList = (List<EmployeeType>) msg.obj;
+
+                List<String> data = new ArrayList<>();
+                int position = -1;
+
+                for (int i = 0; i < typeList.size(); i++) {
+                    data.add(typeList.get(i).getName());
+                    if(typeList.get(i).getName().equals(tName)){
+                        position = i;
+                    }
+                }
+
+                ArrayAdapter adapter = new ArrayAdapter(WorkExamineChangeActivity.this,
+                        R.layout.simple_spinner_item,
+                        data);
+
+                tNameSpinner.setAdapter(adapter);
+                if(position >= 0) tNameSpinner.setSelection(position);
+
+                return true;
+            }
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                EmployeeTypeService employeeTypeService = new EmployeeTypeService();
+                List<EmployeeType> typeList = employeeTypeService.nameArray();
+                if (typeList != null) {
+                    Message msg = new Message();
+                    msg.obj = typeList;
+                    tNameHandler.sendMessage(msg);
+                }
+            }
+        }).start();
+    }
+
     private void initEditText(WorkExamine workExamine) {
         MyApplication myApplication = (MyApplication) getApplication();
         workExamine.setProjectId(myApplication.getUserInfo().getProjectId());
 
-        tNameEdit = findViewById(R.id.work_examine_t_name);
-        if (workExamine.getTName() != null && !workExamine.getTName().equals("")) {
-            tNameEdit.setText(workExamine.getTeamName());
-        }
+        tNameSpinner = findViewById(R.id.work_examine_t_name);
+        setTNameArray(workExamine.getTName());
 
         teamNameEdit = findViewById(R.id.work_examine_team_name);
         if (workExamine.getTeamName() != null && !workExamine.getTeamName().equals("")) {
@@ -103,13 +154,7 @@ public class WorkExamineChangeActivity extends AppCompatActivity {
     }
 
     private boolean check() {
-        if (tNameEdit.getText().toString().equals("")) {
-            ToastUtil.show(WorkExamineChangeActivity.this,
-                    "请输入" + getString(R.string.user_type));
-            return false;
-        } else {
-            workExamine.setTName(tNameEdit.getText().toString());
-        }
+        workExamine.setTName(tNameSpinner.getSelectedItem().toString());
 
         if (teamNameEdit.getText().toString().equals("")) {
             ToastUtil.show(WorkExamineChangeActivity.this,

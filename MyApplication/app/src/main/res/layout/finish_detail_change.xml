@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.WorkExamineChangeActivity"
+    tools:context=".activity.FinishChangeActivity"
     android:orientation="vertical">
 
 
@@ -12,75 +12,58 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical">
+
         <Spinner
-            android:id="@+id/work_examine_t_name"
+            android:id="@+id/finish_user_name"
             android:spinnerMode="dialog"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
+            android:hint="@string/user_name"
+            android:prompt="@string/user_name"/>
+
+        <EditText
+            android:id="@+id/finish_type_name"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
             android:hint="@string/user_type"
-            android:prompt="@string/user_type"/>
-
-        <EditText
-            android:id="@+id/work_examine_team_name"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_team_name"
+            android:textIsSelectable="false"
             android:inputType="text"/>
 
         <EditText
-            android:id="@+id/work_examine_unit"
+            android:id="@+id/finish_day_num"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/work_unit"
-            android:inputType="text"/>
+            android:hint="@string/finish_day_num"
+            android:inputType="number"/>
 
         <EditText
-            android:id="@+id/work_examine_plan"
+            android:id="@+id/finish_day_price"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/work_plan"
+            android:hint="@string/finish_day_price"
             android:inputType="numberDecimal"/>
 
         <EditText
-            android:id="@+id/work_examine_actual"
+            android:id="@+id/finish_sum"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/work_actual"
-            android:inputType="numberDecimal"/>
-
-        <EditText
-            android:id="@+id/work_examine_price"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_price"
-            android:inputType="numberDecimal"/>
-
-        <EditText
-            android:id="@+id/work_examine_finish_price"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_finish_price"
+            android:hint="@string/finish_sum"
+            android:textIsSelectable="true"
             android:inputType="numberDecimal"/>
     </LinearLayout>
 
@@ -94,20 +77,20 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/work_examine_update"
+            android:id="@+id/finish_update"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="@string/submit"
             android:visibility="gone"
-            android:onClick="onWorkExamineUpdateClick"
+            android:onClick="onFinishUpdateClick"
             tools:ignore="MissingConstraints" />
         <Button
-            android:id="@+id/work_examine_save"
+            android:id="@+id/finish_save"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="@string/save"
             android:visibility="gone"
-            android:onClick="onWorkExamineSaveClick"
+            android:onClick="onFinishSaveClick"
             tools:ignore="MissingConstraints" />
     </LinearLayout>
 </LinearLayout>

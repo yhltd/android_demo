@@ -124,5 +124,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.FinishActivity"
+            android:label="@string/admin_user_finish">
+            <intent-filter>
+                <action android:name="android.intent.action.finishActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.FinishChangeActivity"
+            android:label="@string/admin_user_finish">
+            <intent-filter>
+                <action android:name="android.intent.action.finishChangeActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

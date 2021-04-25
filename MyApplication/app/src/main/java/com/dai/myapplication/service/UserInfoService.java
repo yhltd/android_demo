@@ -41,6 +41,20 @@ public class UserInfoService {
                 userInfo.getId());
     }
 
+    public List<UserInfo> selectUsers(boolean isUser, int projectId) {
+
+        String sql = "select * from user_info where is_user " + (isUser ? ">" : "=") + " 0 and project_id = ? order by user_name";
+        base = new BaseDao();
+        return base.query(UserInfo.class, sql, projectId);
+    }
+
+    public List<UserInfo> selectUsers(boolean isPower, boolean isUser, int projectId) {
+
+        String sql = "select * from user_info where power " + (isPower ? ">" : "=") + " 0 and is_user " + (isPower || isUser ? ">" : "=") + " 0 and project_id = ? order by user_name";
+        base = new BaseDao();
+        return base.query(UserInfo.class, sql, projectId);
+    }
+
     public List<UserInfo> selectUsers(boolean isUser) {
 
         String sql = "select * from user_info where is_user " + (isUser ? ">" : "=") + " 0 order by user_name";
