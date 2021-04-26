@@ -12,80 +12,141 @@
         android:gravity="start"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/user_manager"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:paddingLeft="15dp"
-            android:text="@string/admin_user_manager"
-            android:textColor="@color/main_text"
-            android:textSize="20sp"
-            android:background="@drawable/border_bottom"
-            tools:ignore="RtlSymmetry" />
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/user_work"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:paddingLeft="15dp"
-            android:text="@string/admin_user_work"
-            android:textColor="@color/main_text"
-            android:textSize="20sp"
-            android:background="@drawable/border_bottom"
-            tools:ignore="RtlSymmetry" />
+            <LinearLayout
+                android:id="@+id/user_manager"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/manager"/>
 
-        <TextView
-            android:id="@+id/register"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:paddingLeft="15dp"
-            android:text="@string/admin_user_register"
-            android:textColor="@color/main_text"
-            android:textSize="20sp"
-            android:background="@drawable/border_bottom"
-            tools:ignore="RtlSymmetry" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/admin_user_manager"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/examine"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:paddingLeft="15dp"
-            android:text="@string/admin_user_examine"
-            android:textColor="@color/main_text"
-            android:textSize="20sp"
-            android:background="@drawable/border_bottom"
-            tools:ignore="RtlSymmetry" />
+            <LinearLayout
+                android:id="@+id/user_work"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/work"/>
 
-        <TextView
-            android:id="@+id/finish"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/admin_user_work"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:paddingLeft="15dp"
-            android:text="@string/admin_user_finish"
-            android:textColor="@color/main_text"
-            android:textSize="20sp"
-            android:background="@drawable/border_bottom"
-            tools:ignore="RtlSymmetry" />
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/register"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/register"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/admin_user_register"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/examine"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/examine"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/admin_user_examine"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/finish"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border_bottom_top">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/finish"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/admin_user_finish"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

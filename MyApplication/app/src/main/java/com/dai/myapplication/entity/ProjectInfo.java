@@ -20,15 +20,17 @@ public class ProjectInfo {
 
     private int isSettlement;
 
-    private double labourCost;
+    private float labourCost;
 
     private float labourCostRatio;
 
-    private double materialCost;
+    private float materialCost;
+
+    private float materialCostRatio;
 
     private float machineryCost;
 
-    private double machineryCostRatio;
+    private float machineryCostRatio;
 
     public int getId() {
         return id;
@@ -102,11 +104,11 @@ public class ProjectInfo {
         this.isSettlement = isSettlement;
     }
 
-    public double getLabourCost() {
+    public float getLabourCost() {
         return labourCost;
     }
 
-    public void setLabourCost(double labourCost) {
+    public void setLabourCost(float labourCost) {
         this.labourCost = labourCost;
     }
 
@@ -118,12 +120,20 @@ public class ProjectInfo {
         this.labourCostRatio = labourCostRatio;
     }
 
-    public double getMaterialCost() {
+    public float getMaterialCost() {
         return materialCost;
     }
 
-    public void setMaterialCost(double materialCost) {
-        materialCost = materialCost;
+    public void setMaterialCost(float materialCost) {
+        this.materialCost = materialCost;
+    }
+
+    public float getMaterialCostRatio() {
+        return materialCostRatio;
+    }
+
+    public void setMaterialCostRatio(float materialCostRatio) {
+        this.materialCostRatio = materialCostRatio;
     }
 
     public float getMachineryCost() {
@@ -134,11 +144,11 @@ public class ProjectInfo {
         this.machineryCost = machineryCost;
     }
 
-    public double getMachineryCostRatio() {
+    public float getMachineryCostRatio() {
         return machineryCostRatio;
     }
 
-    public void setMachineryCostRatio(double machineryCostRatio) {
+    public void setMachineryCostRatio(float machineryCostRatio) {
         this.machineryCostRatio = machineryCostRatio;
     }
 }

@@ -24,14 +24,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dai.myapplication.MyApplication;
 import com.dai.myapplication.R;
 import com.dai.myapplication.entity.FinishDetail;
+import com.dai.myapplication.entity.ProjectInfo;
 import com.dai.myapplication.entity.UserInfo;
 import com.dai.myapplication.service.EmployeeTypeService;
 import com.dai.myapplication.service.FinishDetailService;
+import com.dai.myapplication.service.ProjectService;
 import com.dai.myapplication.service.UserInfoService;
-import com.dai.myapplication.utils.GsonUtil;
 import com.dai.myapplication.utils.ToastUtil;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +53,7 @@ public class FinishChangeActivity extends AppCompatActivity {
     private EditText dayNumEdit;
     private EditText dayPriceEdit;
     private EditText sumEdit;
+    private Spinner typeSpinner;
 
     @SuppressLint("NonConstantResourceId")
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -94,6 +95,7 @@ public class FinishChangeActivity extends AppCompatActivity {
         dayNumEdit = findViewById(R.id.finish_day_num);
         dayPriceEdit = findViewById(R.id.finish_day_price);
         sumEdit = findViewById(R.id.finish_sum);
+        typeSpinner = findViewById(R.id.finish_type);
 
         //设置readonly
         MyApplication.setEditTextReadOnly(userTypeEdit, sumEdit);
@@ -107,6 +109,7 @@ public class FinishChangeActivity extends AppCompatActivity {
 
         userInfoService = new UserInfoService();
         userNameSpinner = findViewById(R.id.finish_user_name);
+
         Handler initHandler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -114,7 +117,7 @@ public class FinishChangeActivity extends AppCompatActivity {
                     userNameSpinner.setAdapter((SpinnerAdapter) msg.obj);
                     userNameSpinner.setOnItemSelectedListener(onUserNameSelected());
                     if (msg.what >= 0) {
-                        userNameSpinner.setSelection(msg.what + 1);
+                        userNameSpinner.setSelection(msg.what);
                     }
                 } else {
                     ToastUtil.show(FinishChangeActivity.this,
@@ -138,8 +141,7 @@ public class FinishChangeActivity extends AppCompatActivity {
                     List<String> data = new ArrayList<>();
                     for (int i = 0; i < userInfoList.size(); i++) {
                         data.add(userInfoList.get(i).getUserName());
-                        if (userInfo.getUserName() != null && !userInfo.getUserName().equals("") &&
-                                userInfo.getUserName().equals(userInfoList.get(i).getUserName())) {
+                        if (finishDetail.getUserName().equals(userInfoList.get(i).getUserName())) {
                             position = i;
                         }
                     }
@@ -251,6 +253,8 @@ public class FinishChangeActivity extends AppCompatActivity {
             finishDetail.setDayPrice(Float.parseFloat(dayPriceEdit.getText().toString()));
         }
 
+        finishDetail.setFinishType(typeSpinner.getSelectedItem().toString());
+
         return true;
     }
 
@@ -276,6 +280,8 @@ public class FinishChangeActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
+                if(!checkCost()) return;
+
                 Message msg = new Message();
                 finishDetail.setLastFinishTime(new Date());
                 msg.obj = finishDetailService.update(finishDetail);
@@ -306,6 +312,8 @@ public class FinishChangeActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
+                if(!checkCost()) return;
+
                 Message msg = new Message();
                 Date now = new Date();
                 finishDetail.setFinishTime(now);
@@ -315,6 +323,36 @@ public class FinishChangeActivity extends AppCompatActivity {
                 saveHandler.sendMessage(msg);
             }
         }).start();
+    }
+
+    private boolean checkCost() {
+        boolean result = false;
+        float cost = Float.parseFloat(sumEdit.getText().toString());
+
+        ProjectService projectService = new ProjectService();
+        ProjectInfo projectInfo = projectService.surplus(userInfo.getProjectId());
+        if (projectInfo != null) {
+
+            String[] finishTypes = getResources().getStringArray(R.array.finish_type);
+            if (finishTypes[0].equals(finishDetail.getFinishType())) {
+                result = projectInfo.getLabourCost() >= cost;
+            } else if (finishTypes[1].equals(finishDetail.getFinishType())) {
+                result = projectInfo.getMaterialCost() >= cost;
+            } else if (finishTypes[2].equals(finishDetail.getFinishType())) {
+                result = projectInfo.getMachineryCost() >= cost;
+            }
+
+            if (!result) {
+                ToastUtil.show(FinishChangeActivity.this,
+                        "该项目的" + finishDetail.getFinishType() + "超过预算，不能申请结付");
+                ToastUtil.loop();
+            }
+        } else {
+            ToastUtil.show(FinishChangeActivity.this,
+                    "该项目未填入预算，不能申请结付");
+            ToastUtil.loop();
+        }
+        return result;
     }
 
     private void back() {

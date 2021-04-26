@@ -10,33 +10,60 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="start">
-        <TextView
-            android:id="@+id/user_info"
-            android:text="@string/user_info"
-            android:layout_height="55dp"
+        android:gravity="start"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:textColor="@color/main_text"
-            android:textSize="20sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:paddingStart="15dp"
-            tools:ignore="RtlSymmetry" />
-        <TextView
-            android:id="@+id/contract_doc"
-            android:text="@string/contract_doc"
-            android:layout_height="55dp"
-            android:layout_width="match_parent"
-            android:textColor="@color/main_text"
-            android:textSize="20sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:paddingStart="15dp"
-            tools:ignore="RtlSymmetry" />
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/user_info"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border_bottom_right">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/user_info"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/user_info"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contract_doc"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border_bottom">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/contract_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/contract_doc"
+                    android:textColor="@color/main_text"
+                    android:textSize="15sp"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

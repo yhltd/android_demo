@@ -1,6 +1,5 @@
 package com.dai.myapplication.entity;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class FinishDetail{
@@ -20,6 +19,8 @@ public class FinishDetail{
     private Date lastFinishTime;
 
     private int projectId;
+
+    private String finishType;
 
     public int getId() {
         return id;
@@ -83,5 +84,13 @@ public class FinishDetail{
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public String getFinishType() {
+        return finishType;
+    }
+
+    public void setFinishType(String finishType) {
+        this.finishType = finishType;
     }
 }

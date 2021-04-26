@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">MyApplication</string>
 
     <string name="user_code">用户名</string>
     <string name="user_name">姓名</string>
@@ -52,11 +52,18 @@
     <string name="finish_day_num">出勤工日/完成工程量</string>
     <string name="finish_day_price">日工资/单价</string>
     <string name="finish_sum">工资总额</string>
+    <string name="finish_type">申请类别</string>
     <string name="finish_time">结算日期</string>
     <string name="finish_last_update_time">最后修改日期</string>
 
     <string-array name="sex">
         <item>男</item>
         <item>女</item>
+    </string-array>
+
+    <string-array name="finish_type">
+        <item>人工费</item>
+        <item>材料费</item>
+        <item>机械费</item>
     </string-array>
 </resources>

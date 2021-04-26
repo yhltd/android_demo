@@ -3,6 +3,7 @@ package com.dai.myapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,7 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_main);
 
-        TextView manager = findViewById(R.id.user_manager);
+        LinearLayout manager = findViewById(R.id.user_manager);
         manager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +28,7 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        TextView register = findViewById(R.id.register);
+        LinearLayout register = findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +37,7 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        TextView examine = findViewById(R.id.examine);
+        LinearLayout examine = findViewById(R.id.examine);
         examine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +46,7 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        TextView finish = findViewById(R.id.finish);
+        LinearLayout finish = findViewById(R.id.finish);
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
