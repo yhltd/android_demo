@@ -54,5 +54,14 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        LinearLayout work = findViewById(R.id.user_work);
+        work.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this, AttendanceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

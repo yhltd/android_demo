@@ -66,4 +66,10 @@
         <item>材料费</item>
         <item>机械费</item>
     </string-array>
+    
+    <string-array name="attendance">
+        <item>出勤 Y</item>
+        <item>事假 H</item>
+        <item>旷工 X</item>
+    </string-array>
 </resources>

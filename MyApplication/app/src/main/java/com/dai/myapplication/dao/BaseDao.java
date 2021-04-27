@@ -62,7 +62,9 @@ public class BaseDao<T> {
             preparedStatement = conn.prepareStatement(sql);
 
             if (params != null) for (int i = 0; i < params.length; i++) {
-                preparedStatement.setString(i + 1, params[i].toString());
+                preparedStatement.setString(i + 1, params[i] != null ?
+                        handlerParam(params[i]) :
+                        "");
             }
 
             resultSet = preparedStatement.executeQuery();
@@ -180,7 +182,7 @@ public class BaseDao<T> {
         return result > 0;
     }
 
-    private String handlerParam(Object obj){
+    private String handlerParam(Object obj) {
         String tName = obj.getClass().getName();
         if ("java.util.Date".equals(obj.getClass().getName())) {
             @SuppressLint("SimpleDateFormat")
@@ -196,7 +198,10 @@ public class BaseDao<T> {
             switch (field.getType().getName()) {
                 case "java.util.Date":
                     @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    SimpleDateFormat simpleDateFormat =
+                            obj.toString().length() == 19 ?
+                                    new SimpleDateFormat("yyyy-MM-dd hh:mm:ss") :
+                                    new SimpleDateFormat("yyyy-MM-dd");
                     obj = simpleDateFormat.parse(obj.toString());
                     break;
                 case "java.lang.String":
