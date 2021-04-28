@@ -2,6 +2,7 @@ package com.dai.myapplication.service;
 
 import com.dai.myapplication.dao.BaseDao;
 import com.dai.myapplication.entity.ProjectInfo;
+import com.dai.myapplication.entity.UserInfo;
 
 import java.util.List;
 
@@ -34,4 +35,11 @@ public class ProjectService {
         List<ProjectInfo> list = base.query(ProjectInfo.class, sql, id);
         return list != null && list.size() > 0 ? list.get(0) : null;
     }
+
+    public boolean updateProject(int projectId,int id){
+        String sql="update user_info set project_id=? where id=?";
+        base=new BaseDao();
+        return base.execute(sql,projectId,id);
+    }
+
 }

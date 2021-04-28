@@ -207,6 +207,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 ToastUtil.show(UserInfoActivity.this, "保存成功");
                                 MyApplication myApplication = (MyApplication) getApplication();
                                 myApplication.setUserInfo(userInfo);
+                                back();
                             }else{
                                 ToastUtil.show(UserInfoActivity.this, "保存失败，稍后再试");
                             }
@@ -324,5 +325,10 @@ public class UserInfoActivity extends AppCompatActivity {
         userInfo.setSex(sexSpinner.getSelectedItem().toString());
 
         return true;
+    }
+
+    private void back() {
+        setResult(RESULT_OK, new Intent());
+        finish();
     }
 }
