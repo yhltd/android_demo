@@ -28,15 +28,31 @@
 <!--        android:text="用户名"-->
 <!--        android:textSize="15.0sp" >-->
 <!--    </TextView>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_bottom">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/search"/>
+        <EditText
+            android:id="@+id/register_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:hint="搜索姓名"/>
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/manager_user_code"
-            android:paddingLeft="15dp"
-            android:textColor="@color/main_text"
-            android:textSize="16sp"
-            android:text="用户名                                 姓名"  />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/manager_user_code"-->
+<!--            android:paddingLeft="15dp"-->
+<!--            android:textColor="@color/main_text"-->
+<!--            android:textSize="16sp"-->
+<!--            android:text="用户名                                 姓名"  />-->
 
 
     <ListView

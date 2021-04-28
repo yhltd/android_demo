@@ -42,7 +42,7 @@ public class UserManagerActivity extends AppCompatActivity {
 
     private List<UserInfo> list;
 
-    private List<UserInfo>newList;
+    //private List<UserInfo>newList;
 
     private ListView listView;
 
@@ -60,8 +60,8 @@ public class UserManagerActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.user_manager_list);
 
-        searchEdit = findViewById(R.id.user_search);
-        searchEdit.addTextChangedListener(onSearchUser());
+        //searchEdit = findViewById(R.id.user_search);
+        //searchEdit.addTextChangedListener(onSearchUser());
 
         initList();
     }
@@ -210,39 +210,40 @@ public class UserManagerActivity extends AppCompatActivity {
                         item.put("userCode", list.get(i).getUserCode());
                         item.put("userName", list.get(i).getUserName());
                         data.add(item);
-                        UserInfo itemNew=new UserInfo();
-                        itemNew.setUserCode(list.get(i).getUserCode());
-                        newList.add(itemNew);
-                    }else{
-                        LinearLayout linearLayout= (LinearLayout)listView.getChildAt(0);
-                        //listView.setVisibility(View.INVISIBLE);
+//                        UserInfo itemNew=new UserInfo();
+//                        itemNew.setUserCode(list.get(i).getUserCode());
+//                        newList.add(itemNew);
                     }
+//                    else{
+//                        LinearLayout linearLayout= (LinearLayout)listView.getChildAt(0);
+//                        //listView.setVisibility(View.INVISIBLE);
+//                    }
                 }
 
-//                SimpleAdapter adapter = new SimpleAdapter(UserManagerActivity.this,
-//                        data,
-//                        R.layout.user_manager_row,
-//                        new String[]{"userCode","userName"},
-//                        new int[]{R.id.manager_user_code,R.id.manager_user_name}) {
-//                    @Override
-//                    public View getView(int position, View convertView, ViewGroup parent) {
-//                        //final View view = super.getView(position, convertView, parent);
-////                        view.setTag(position);
-////                        return view;
-//
-//                        final LinearLayout view = (LinearLayout)super.getView(position, convertView, parent);
-//                        LinearLayout linearLayout= (LinearLayout)view.getChildAt(0);
-//                        linearLayout.setOnClickListener(onClick());
-//                        linearLayout.setOnLongClickListener(onLongClickListener());
-//                        linearLayout.setTag(position);
-//                        Button btn=(Button) view.getChildAt(1);
-//                        btn.setOnClickListener(onItemClick());
-//                        btn.setTag(position);
-//
+                SimpleAdapter adapter = new SimpleAdapter(UserManagerActivity.this,
+                        data,
+                        R.layout.user_manager_row,
+                        new String[]{"userCode","userName"},
+                        new int[]{R.id.manager_user_code,R.id.manager_user_name}) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        //final View view = super.getView(position, convertView, parent);
+//                        view.setTag(position);
 //                        return view;
-//                    }
-//                };
-//                listView.setAdapter(adapter);
+
+                        final LinearLayout view = (LinearLayout)super.getView(position, convertView, parent);
+                        LinearLayout linearLayout= (LinearLayout)view.getChildAt(0);
+                        linearLayout.setOnClickListener(onClick());
+                        linearLayout.setOnLongClickListener(onLongClickListener());
+                        linearLayout.setTag(position);
+                        Button btn=(Button) view.getChildAt(1);
+                        btn.setOnClickListener(onItemClick());
+                        btn.setTag(position);
+
+                        return view;
+                    }
+                };
+                listView.setAdapter(adapter);
             }
         };
     }
