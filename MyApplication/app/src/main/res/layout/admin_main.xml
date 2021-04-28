@@ -146,6 +146,11 @@
                     android:textSize="15sp"
                     tools:ignore="RtlSymmetry" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
 

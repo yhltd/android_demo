@@ -96,6 +96,7 @@ public class FinishChangeActivity extends AppCompatActivity {
         dayPriceEdit = findViewById(R.id.finish_day_price);
         sumEdit = findViewById(R.id.finish_sum);
         typeSpinner = findViewById(R.id.finish_type);
+        typeSpinner.setSelection(getFinishTypePosition(finishDetail.getFinishType()));
 
         //设置readonly
         MyApplication.setEditTextReadOnly(userTypeEdit, sumEdit);
@@ -158,6 +159,16 @@ public class FinishChangeActivity extends AppCompatActivity {
                 initHandler.sendMessage(msg);
             }
         }).start();
+    }
+
+    private int getFinishTypePosition(String finishType) {
+        String[] types = getResources().getStringArray(R.array.finish_type);
+        for (int i = 0; i < types.length; i++) {
+            if(finishType.equals(types[i])){
+                return i;
+            }
+        }
+        return 0;
     }
 
     private AdapterView.OnItemSelectedListener onUserNameSelected() {
@@ -281,7 +292,7 @@ public class FinishChangeActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
-                if(!checkCost()) return;
+                if (!checkCost()) return;
 
                 Message msg = new Message();
                 finishDetail.setLastFinishTime(new Date());
@@ -313,7 +324,7 @@ public class FinishChangeActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
-                if(!checkCost()) return;
+                if (!checkCost()) return;
 
                 Message msg = new Message();
                 Date now = new Date();

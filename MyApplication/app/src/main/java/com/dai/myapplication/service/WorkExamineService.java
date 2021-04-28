@@ -4,7 +4,9 @@ import com.dai.myapplication.dao.BaseDao;
 import com.dai.myapplication.entity.WorkExamine;
 import com.dai.myapplication.utils.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WorkExamineService {
 
@@ -56,5 +58,16 @@ public class WorkExamineService {
 
         baseDao = new BaseDao();
         return baseDao.execute(sql, id);
+    }
+
+    public boolean remove(Map<Integer, Integer> idMap) {
+        StringBuilder idStr = new StringBuilder();
+        for (Integer key : idMap.keySet()) {
+            idStr.append(idMap.get(key)).append(",");
+        }
+        String sql = "delete from work_examine where id in (" + idStr.substring(0, idStr.length() - 1) + ")";
+
+        baseDao = new BaseDao();
+        return baseDao.execute(sql);
     }
 }
