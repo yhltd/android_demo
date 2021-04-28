@@ -152,5 +152,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.UserProjectActivity"
+            android:label="@string/project">
+            <intent-filter>
+                <action android:name="android.intent.action.UserProjectActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

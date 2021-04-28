@@ -72,4 +72,6 @@
         <item>事假 H</item>
         <item>旷工 X</item>
     </string-array>
+
+    <string name="project">项目</string>
 </resources>

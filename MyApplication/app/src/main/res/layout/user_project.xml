@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.UserManagerActivity"
+    android:orientation="vertical">
+
+    <!--    <NavigationView-->
+    <!--        android:id="@+id/navigation_view"-->
+    <!--        android:layout_width="350dp"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_gravity="left"-->
+    <!--        android:fitsSystemWindows="true"-->
+    <!--        android:menu="@menu/user_manager_menu">-->
+
+    <!--    </NavigationView>-->
+
+    <ListView
+        android:id="@+id/user_project_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/border_level_1"
+        android:dividerHeight="1dp" />
+
+</LinearLayout>
