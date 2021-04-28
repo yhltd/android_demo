@@ -3,6 +3,7 @@ package com.dai.myapplication.activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -137,7 +138,7 @@ public class ContractActivity extends AppCompatActivity {
                     + getString(R.string.app_name) + "/Contract/";
             //创建路径
             File pathFile = new File(path);
-            if(!pathFile.exists()){
+            if (!pathFile.exists()) {
                 pathFile.mkdirs();
             }
             //全路径文件
@@ -167,9 +168,16 @@ public class ContractActivity extends AppCompatActivity {
         return file;
     }
 
+    private final static String DOC = "application/msword";
+    private final static String DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
     public void onUpLoadClick(View v) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("application/msword");
+        intent.setType(DOC + "|" + DOCX);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            intent.putExtra(Intent.EXTRA_MIME_TYPES,
+                    new String[]{DOC, DOCX});
+        }
         startActivityForResult(intent, REQUEST_CHOOSE_FILE);
     }
 

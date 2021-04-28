@@ -1,14 +1,19 @@
 package com.dai.myapplication.activity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -30,6 +35,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class FinishActivity extends AppCompatActivity {
 
@@ -43,6 +49,8 @@ public class FinishActivity extends AppCompatActivity {
 
     private ListView listView;
 
+    private EditText searchEdit;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +63,50 @@ public class FinishActivity extends AppCompatActivity {
 
         finishDetailService = new FinishDetailService();
 
+        searchEdit = findViewById(R.id.finish_search);
+        searchEdit.addTextChangedListener(onSearchEditChange());
+
         initList();
     }
 
-    private void initList(){
+    private TextWatcher onSearchEditChange() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                List<HashMap<String, Object>> data = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    if(text.equals("") || list.get(i).getUserName().contains(text)){
+                        HashMap<String, Object> item = new HashMap<>();
+                        item.put("user_name", list.get(i).getUserName());
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                        item.put("finish_time", formatter.format(list.get(i).getFinishTime()));
+                        data.add(item);
+                    }
+                }
+                SimpleAdapter adapter = new SimpleAdapter(FinishActivity.this,
+                        data,
+                        R.layout.finish_detail_row,
+                        new String[]{"user_name", "finish_time"},
+                        new int[]{R.id.user_name, R.id.finish_time});
+
+                listView.setAdapter(adapter);
+            }
+        };
+    }
+
+    private void initList() {
         getSupportActionBar().setTitle("正在加载...");
 
         Handler initHandler = new Handler(new Handler.Callback() {
@@ -86,11 +134,12 @@ public class FinishActivity extends AppCompatActivity {
 
                 SimpleAdapter adapter = null;
 
-                if(list != null){
+                if (list != null) {
                     List<HashMap<String, Object>> data = new ArrayList<>();
                     for (int i = 0; i < list.size(); i++) {
                         HashMap<String, Object> item = new HashMap<>();
                         item.put("user_name", list.get(i).getUserName());
+                        @SuppressLint("SimpleDateFormat")
                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                         item.put("finish_time", formatter.format(list.get(i).getFinishTime()));
                         data.add(item);
@@ -122,16 +171,16 @@ public class FinishActivity extends AppCompatActivity {
         };
     }
 
-    private AdapterView.OnItemLongClickListener onItemLongClick(){
-        return new AdapterView.OnItemLongClickListener(){
+    private AdapterView.OnItemLongClickListener onItemLongClick() {
+        return new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(FinishActivity.this);
 
                 Handler deleteHandler = new Handler(new Handler.Callback() {
                     @Override
                     public boolean handleMessage(@NonNull Message msg) {
-                        if((boolean) msg.obj){
+                        if ((boolean) msg.obj) {
                             ToastUtil.show(FinishActivity.this, "删除成功");
                             initList();
                         }
@@ -168,7 +217,7 @@ public class FinishActivity extends AppCompatActivity {
         };
     }
 
-    public void onInsertClick(View v){
+    public void onInsertClick(View v) {
         Intent intent = new Intent(FinishActivity.this, FinishChangeActivity.class);
         intent.putExtra("type", R.id.finish_save);
         startActivityForResult(intent, REQUEST_CODE_CHANG);
@@ -177,9 +226,9 @@ public class FinishActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_CODE_CHANG:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     initList();
                 }
                 break;

@@ -1,113 +1,174 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.WorkExamineChangeActivity"
-    android:orientation="vertical">
-
+    tools:context=".activity.WorkExamineChangeActivity">
 
     <LinearLayout
-        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:orientation="vertical">
-        <Spinner
-            android:id="@+id/work_examine_t_name"
-            android:spinnerMode="dialog"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_type"
-            android:prompt="@string/user_type"/>
-
-        <EditText
-            android:id="@+id/work_examine_team_name"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_team_name"
-            android:inputType="text"/>
-
-        <EditText
-            android:id="@+id/work_examine_unit"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_unit"
-            android:inputType="text"/>
-
-        <EditText
-            android:id="@+id/work_examine_plan"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_plan"
-            android:inputType="numberDecimal"/>
-
-        <EditText
-            android:id="@+id/work_examine_actual"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_actual"
-            android:inputType="numberDecimal"/>
-
-        <EditText
-            android:id="@+id/work_examine_price"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_price"
-            android:inputType="numberDecimal"/>
-
-        <EditText
-            android:id="@+id/work_examine_finish_price"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/work_finish_price"
-            android:inputType="numberDecimal"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/work_examine_update"
-            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="@string/submit"
-            android:visibility="gone"
-            android:onClick="onWorkExamineUpdateClick"
-            tools:ignore="MissingConstraints" />
-        <Button
-            android:id="@+id/work_examine_save"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:visibility="gone"
-            android:onClick="onWorkExamineSaveClick"
-            tools:ignore="MissingConstraints" />
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/user_type" />
+
+            <Spinner
+                android:id="@+id/work_examine_t_name"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_type"
+                android:prompt="@string/user_type"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/work_team_name" />
+
+            <EditText
+                android:id="@+id/work_examine_team_name"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/work_team_name"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/work_unit" />
+
+            <EditText
+                android:id="@+id/work_examine_unit"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/work_unit"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/work_plan" />
+
+            <EditText
+                android:id="@+id/work_examine_plan"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/work_plan"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/work_actual" />
+
+            <EditText
+                android:id="@+id/work_examine_actual"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/work_actual"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/work_price" />
+
+            <EditText
+                android:id="@+id/work_examine_price"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/work_price"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/work_finish_price" />
+
+            <EditText
+                android:id="@+id/work_examine_finish_price"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/work_finish_price"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <Button
+                android:id="@+id/work_examine_update"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:onClick="onWorkExamineUpdateClick"
+                android:text="@string/submit"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/work_examine_save"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:onClick="onWorkExamineSaveClick"
+                android:text="@string/save"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

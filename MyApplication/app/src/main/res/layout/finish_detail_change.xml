@@ -1,108 +1,161 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FinishChangeActivity"
-    android:orientation="vertical">
-
+    tools:context=".activity.FinishChangeActivity">
 
     <LinearLayout
-        android:layout_marginTop="40dp"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/finish_user_name"
-            android:spinnerMode="dialog"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_name"
-            android:prompt="@string/user_name"/>
-
-        <EditText
-            android:id="@+id/finish_type_name"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/user_type"
-            android:textIsSelectable="false"
-            android:inputType="text"/>
-
-        <EditText
-            android:id="@+id/finish_day_num"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/finish_day_num"
-            android:inputType="number"/>
-
-        <EditText
-            android:id="@+id/finish_day_price"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/finish_day_price"
-            android:inputType="numberDecimal"/>
-
-        <EditText
-            android:id="@+id/finish_sum"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/finish_sum"
-            android:textIsSelectable="true"
-            android:inputType="numberDecimal"/>
-
-        <Spinner
-            android:id="@+id/finish_type"
-            android:spinnerMode="dropdown"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:entries="@array/finish_type"
-            android:hint="@string/finish_type"
-            android:prompt="@string/finish_type"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/finish_update"
-            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="@string/submit"
-            android:visibility="gone"
-            android:onClick="onFinishUpdateClick"
-            tools:ignore="MissingConstraints" />
-        <Button
-            android:id="@+id/finish_save"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:visibility="gone"
-            android:onClick="onFinishSaveClick"
-            tools:ignore="MissingConstraints" />
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/user_name" />
+
+            <Spinner
+                android:id="@+id/finish_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_name"
+                android:prompt="@string/user_name"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/user_type" />
+
+            <EditText
+                android:id="@+id/finish_type_name"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/user_type"
+                android:inputType="text"
+                android:textIsSelectable="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/finish_day_num" />
+
+            <EditText
+                android:id="@+id/finish_day_num"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/finish_day_num"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/finish_day_price" />
+
+            <EditText
+                android:id="@+id/finish_day_price"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/finish_day_price"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/finish_sum" />
+
+            <EditText
+                android:id="@+id/finish_sum"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/finish_sum"
+                android:inputType="numberDecimal"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/finish_type" />
+
+            <Spinner
+                android:id="@+id/finish_type"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:entries="@array/finish_type"
+                android:hint="@string/finish_type"
+                android:prompt="@string/finish_type"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <Button
+                android:id="@+id/finish_update"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:onClick="onFinishUpdateClick"
+                android:text="@string/submit"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/finish_save"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:onClick="onFinishSaveClick"
+                android:text="@string/save"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
+

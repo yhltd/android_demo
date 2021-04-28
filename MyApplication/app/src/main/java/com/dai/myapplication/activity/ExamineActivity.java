@@ -1,12 +1,16 @@
 package com.dai.myapplication.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -20,6 +24,7 @@ import com.dai.myapplication.service.UserInfoService;
 import com.dai.myapplication.utils.GsonUtil;
 import com.dai.myapplication.utils.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,11 +41,16 @@ public class ExamineActivity extends AppCompatActivity {
 
     private ListView listView;
 
+    private EditText searchEdit;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_examine);
         listView = findViewById(R.id.examine_list);
+
+        searchEdit = findViewById(R.id.register_search);
+        searchEdit.addTextChangedListener(onSearchEditChange());
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.primary);
@@ -51,6 +61,48 @@ public class ExamineActivity extends AppCompatActivity {
                 initView();
             }
         });
+    }
+
+    private TextWatcher onSearchEditChange() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                List<HashMap<String, Object>> data = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    if(text.equals("") || list.get(i).getUserName().contains(text)){
+                        HashMap<String, Object> item = new HashMap<>();
+                        item.put("userName", list.get(i).getUserName());
+                        item.put("id", list.get(i).getId());
+                        data.add(item);
+                    }
+                }
+                SimpleAdapter adapter = new SimpleAdapter(ExamineActivity.this,
+                        data,
+                        R.layout.register_examine_row,
+                        new String[]{"userName"},
+                        new int[]{R.id.examine_user_name}) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        final View view = super.getView(position, convertView, parent);
+                        view.setTag(position);
+                        return view;
+                    }
+                };
+
+                listView.setAdapter(adapter);
+            }
+        };
     }
 
     private void initView() {

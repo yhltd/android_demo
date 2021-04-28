@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.LoginActivity">
 
 
     <LinearLayout
-        android:layout_marginTop="60dp"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/login_background">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/login_user"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="请登录"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
+
         <EditText
             android:id="@+id/login_user_code"
             android:layout_width="match_parent"
@@ -20,7 +37,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/user_code"
-            android:inputType="text"/>
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/login_password"
@@ -30,29 +47,35 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/user_password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
         android:gravity="center">
 
         <Button
             android:id="@+id/action_sign_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:text="@string/action_sign_in"
-            tools:ignore="MissingConstraints"/>
+            android:textSize="17sp"
+            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/action_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="72dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:text="@string/action_register"
+            android:textSize="17sp"
             tools:ignore="MissingConstraints" />
     </LinearLayout>
 </LinearLayout>

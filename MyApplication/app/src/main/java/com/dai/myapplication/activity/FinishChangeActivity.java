@@ -141,7 +141,8 @@ public class FinishChangeActivity extends AppCompatActivity {
                     List<String> data = new ArrayList<>();
                     for (int i = 0; i < userInfoList.size(); i++) {
                         data.add(userInfoList.get(i).getUserName());
-                        if (finishDetail.getUserName().equals(userInfoList.get(i).getUserName())) {
+                        if (finishDetail.getUserName() != null &&
+                                finishDetail.getUserName().equals(userInfoList.get(i).getUserName())) {
                             position = i;
                         }
                     }
