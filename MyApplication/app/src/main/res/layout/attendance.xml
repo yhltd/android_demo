@@ -41,6 +41,39 @@
             android:layout_marginEnd="15dp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/border_bottom">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:textColor="@color/main_text"
+            android:textSize="18sp"
+            android:text="姓名 | 账号"
+            android:textStyle="bold"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:textColor="@color/main_text"
+            android:textSize="18sp"
+            android:text="@string/attendance"
+            android:textStyle="bold"
+            android:paddingEnd="15dp"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/attendance_list"
         android:layout_width="match_parent"
@@ -57,11 +90,29 @@
         android:paddingLeft="50dp"
         android:paddingRight="50dp">
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
         <Button
             android:id="@+id/attendance_save"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onAttendanceSaveClick"
             android:text="@string/save" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/attendance_save_bitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onAttendanceSaveBitchClick"
+            android:text="一键设置" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

@@ -57,6 +57,8 @@ public class AttendanceActivity extends AppCompatActivity {
     //当天考勤信息
     private List<WorkAttendance> attendanceList;
 
+    private String[] items;
+
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -64,6 +66,8 @@ public class AttendanceActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance);
+
+        items = getResources().getStringArray(R.array.attendance);
 
         MyApplication myApplication = (MyApplication) getApplication();
         userInfo = myApplication.getUserInfo();
@@ -98,6 +102,7 @@ public class AttendanceActivity extends AppCompatActivity {
         };
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onDownClick(View v) {
         Calendar calendar = Calendar.getInstance();
         try {
@@ -215,8 +220,6 @@ public class AttendanceActivity extends AppCompatActivity {
                 SimpleAdapter adapter = (SimpleAdapter) listView.getAdapter();
                 HashMap<String, Object> obj = StringUtils.cast(adapter.getItem(position));
 
-                final String[] items = getResources().getStringArray(R.array.attendance);
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(AttendanceActivity.this);
                 builder.setTitle("选择出勤状态");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -234,13 +237,13 @@ public class AttendanceActivity extends AppCompatActivity {
         };
     }
 
-    private AdapterView.OnItemLongClickListener onListItemLongClick(){
+    private AdapterView.OnItemLongClickListener onListItemLongClick() {
         return new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 SimpleAdapter adapter = (SimpleAdapter) listView.getAdapter();
                 HashMap<String, Object> obj = StringUtils.cast(adapter.getItem(position));
-                if(!obj.containsKey("class")) return false;
+                if (!obj.containsKey("class")) return false;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AttendanceActivity.this);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -249,7 +252,7 @@ public class AttendanceActivity extends AppCompatActivity {
                         Handler deleteHandler = new Handler(new Handler.Callback() {
                             @Override
                             public boolean handleMessage(@NonNull Message msg) {
-                                if((boolean) msg.obj){
+                                if ((boolean) msg.obj) {
                                     ToastUtil.show(AttendanceActivity.this, "删除成功");
                                     obj.remove("isUpdate");
                                     obj.remove("class");
@@ -345,6 +348,26 @@ public class AttendanceActivity extends AppCompatActivity {
                 saveHandler.sendMessage(msg);
             }
         }).start();
+    }
+
+    public void onAttendanceSaveBitchClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AttendanceActivity.this);
+        builder.setTitle("选择出勤状态");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SimpleAdapter adapter = (SimpleAdapter) listView.getAdapter();
+                for (int position = 0; position < adapter.getCount(); position++) {
+                    HashMap<String, Object> obj = StringUtils.cast(adapter.getItem(position));
+                    obj.remove("attendance");
+                    obj.put("attendance", items[i]);
+
+                    obj.put("isUpdate", true);
+                    listView.setAdapter(adapter);
+                }
+            }
+        });
+        builder.create().show();
     }
 
     private String getAttendance(int position) {

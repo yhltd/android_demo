@@ -2,15 +2,23 @@ package com.dai.myapplication.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,13 +30,15 @@ import com.dai.myapplication.service.WorkExamineService;
 import com.dai.myapplication.utils.GsonUtil;
 import com.dai.myapplication.utils.StringUtils;
 import com.dai.myapplication.utils.ToastUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WorkExamineActivity extends AppCompatActivity {
-    
+
     private UserInfo userInfo;
 
     private final static int REQUEST_CODE_CHANG = 100;
@@ -39,6 +49,14 @@ public class WorkExamineActivity extends AppCompatActivity {
 
     private ListView listView;
 
+    private EditText searchEdit;
+
+    private Map<Integer, Integer> idList;
+
+    private boolean isMultiChoice = false;
+    private FloatingActionButton insertBtn;
+    private FloatingActionButton deleteBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +65,47 @@ public class WorkExamineActivity extends AppCompatActivity {
         MyApplication myApplication = (MyApplication) getApplication();
         userInfo = myApplication.getUserInfo();
 
+        insertBtn = findViewById(R.id.work_examine_insert);
+        deleteBtn = findViewById(R.id.work_examine_delete);
+
+        searchEdit = findViewById(R.id.work_search);
+        searchEdit.addTextChangedListener(onSearchEditChange());
+
         workExamineService = new WorkExamineService();
 
         listView = findViewById(R.id.work_examine_list);
         initList();
+    }
+
+    private TextWatcher onSearchEditChange() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                ListAdapter adapter = listView.getAdapter();
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    HashMap<String, Object> itemMap = StringUtils.cast(adapter.getItem(i));
+                    View itemView = listView.getChildAt(i);
+                    if (text.equals("") ||
+                            (itemMap.get("type").toString().contains(text) ||
+                                    itemMap.get("team_name").toString().contains(text))) {
+                        itemView.setVisibility(View.VISIBLE);
+                    } else {
+                        itemView.setVisibility(View.GONE);
+                    }
+                }
+            }
+        };
     }
 
     private void initList() {
@@ -105,55 +160,39 @@ public class WorkExamineActivity extends AppCompatActivity {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(WorkExamineActivity.this, WorkExamineChangeActivity.class);
-                intent.putExtra("type", R.id.work_examine_update);
-                intent.putExtra("class", GsonUtil.toJson(list.get(position)));
-                startActivityForResult(intent, REQUEST_CODE_CHANG);
+                myOnItemClick(view, position);
             }
         };
     }
 
-    private AdapterView.OnItemLongClickListener onItemLongClick(){
-        return new AdapterView.OnItemLongClickListener(){
+    private void myOnItemClick(View view, int position) {
+        if (isMultiChoice) {
+            if (view.getBackground() == null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    idList.put(position, list.get(position).getId());
+                    view.setBackground(getDrawable(R.drawable.background_primary));
+                }
+            } else {
+                view.setBackground(null);
+                idList.remove(position);
+            }
+        } else {
+            Intent intent = new Intent(WorkExamineActivity.this, WorkExamineChangeActivity.class);
+            intent.putExtra("type", R.id.work_examine_update);
+            intent.putExtra("class", GsonUtil.toJson(list.get(position)));
+            startActivityForResult(intent, REQUEST_CODE_CHANG);
+        }
+    }
+
+    private AdapterView.OnItemLongClickListener onItemLongClick() {
+        return new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-                AlertDialog.Builder builder = new AlertDialog.Builder(WorkExamineActivity.this);
-
-                Handler deleteHandler = new Handler(new Handler.Callback() {
-                    @Override
-                    public boolean handleMessage(@NonNull Message msg) {
-                        if((boolean) msg.obj){
-                            ToastUtil.show(WorkExamineActivity.this, "删除成功");
-                            initList();
-                        }
-                        return true;
-                    }
-                });
-
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Message msg = new Message();
-                                msg.obj = workExamineService.remove(list.get(position).getId());
-                                deleteHandler.sendMessage(msg);
-                            }
-                        }).start();
-                    }
-                });
-
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                builder.setMessage("确定删除吗？");
-                builder.setTitle("提示");
-                builder.show();
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                isMultiChoice = true;
+                insertBtn.setVisibility(View.GONE);
+                deleteBtn.setVisibility(View.VISIBLE);
+                idList = new HashMap<>();
+                myOnItemClick(view, position);
                 return true;
             }
         };
@@ -165,15 +204,56 @@ public class WorkExamineActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_CODE_CHANG);
     }
 
+    public void onDeleteClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WorkExamineActivity.this);
+
+        Handler deleteHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                if ((boolean) msg.obj) {
+                    insertBtn.setVisibility(View.VISIBLE);
+                    deleteBtn.setVisibility(View.GONE);
+                    isMultiChoice = false;
+                    ToastUtil.show(WorkExamineActivity.this, "删除成功");
+                    initList();
+                }
+                return true;
+            }
+        });
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Message msg = new Message();
+                        msg.obj = workExamineService.remove(idList);
+                        deleteHandler.sendMessage(msg);
+                    }
+                }).start();
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setMessage("确定删除吗？");
+        builder.setTitle("提示");
+        builder.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case REQUEST_CODE_CHANG:
-                if(resultCode == RESULT_OK){
-                    initList();
-                }
-                break;
+        if (requestCode == REQUEST_CODE_CHANG) {
+            if (resultCode == RESULT_OK) {
+                initList();
+            }
         }
     }
 }

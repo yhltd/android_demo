@@ -33,7 +33,8 @@
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:label="@string/action_register">
+            android:label="@string/action_register"
+            android:parentActivityName=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.registerAactivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -41,7 +42,8 @@
         </activity>
         <activity
             android:name=".activity.AdminActivity"
-            android:label="@string/main">
+            android:label="@string/main"
+            android:parentActivityName=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.adminActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -49,7 +51,8 @@
         </activity>
         <activity
             android:name=".activity.UserActivity"
-            android:label="@string/main">
+            android:label="@string/main"
+            android:parentActivityName=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.userActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -57,7 +60,8 @@
         </activity>
         <activity
             android:name=".activity.UserManagerActivity"
-            android:label="@string/admin_user_manager">
+            android:label="@string/admin_user_manager"
+            android:parentActivityName=".activity.AdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.userManagerActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -65,7 +69,8 @@
         </activity>
         <activity
             android:name=".activity.ExamineActivity"
-            android:label="@string/admin_user_register">
+            android:label="@string/admin_user_register"
+            android:parentActivityName=".activity.AdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.examineActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -73,7 +78,8 @@
         </activity>
         <activity
             android:name=".activity.ExamineSubmitActivity"
-            android:label="@string/admin_user_register">
+            android:label="@string/admin_user_register"
+            android:parentActivityName=".activity.ExamineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.examineSubmitActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -82,7 +88,8 @@
 
         <activity
             android:name=".activity.UserInfoActivity"
-            android:label="@string/user_info">
+            android:label="@string/user_info"
+            android:parentActivityName=".activity.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.userInfoActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -91,7 +98,8 @@
 
         <activity
             android:name=".activity.UserIdCheckActivity"
-            android:label="@string/id_check">
+            android:label="@string/id_check"
+            android:parentActivityName=".activity.UserInfoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.userIdCheckActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -100,7 +108,8 @@
 
         <activity
             android:name=".activity.ContractActivity"
-            android:label="@string/contract_doc">
+            android:label="@string/contract_doc"
+            android:parentActivityName=".activity.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.coutractActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -109,7 +118,8 @@
 
         <activity
             android:name=".activity.WorkExamineActivity"
-            android:label="@string/admin_user_examine">
+            android:label="@string/admin_user_examine"
+            android:parentActivityName=".activity.AdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.workExamineActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -118,7 +128,8 @@
 
         <activity
             android:name=".activity.WorkExamineChangeActivity"
-            android:label="@string/admin_user_examine">
+            android:label="@string/admin_user_examine"
+            android:parentActivityName=".activity.WorkExamineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.workExamineChangeActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -127,7 +138,8 @@
 
         <activity
             android:name=".activity.FinishActivity"
-            android:label="@string/admin_user_finish">
+            android:label="@string/admin_user_finish"
+            android:parentActivityName=".activity.AdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.finishActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -136,7 +148,8 @@
 
         <activity
             android:name=".activity.FinishChangeActivity"
-            android:label="@string/admin_user_finish">
+            android:label="@string/admin_user_finish"
+            android:parentActivityName=".activity.FinishActivity">
             <intent-filter>
                 <action android:name="android.intent.action.finishChangeActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -146,7 +159,8 @@
 
         <activity
             android:name=".activity.AttendanceActivity"
-            android:label="@string/admin_user_work">
+            android:label="@string/admin_user_work"
+            android:parentActivityName=".activity.AdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.attendanceActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -155,7 +169,8 @@
 
         <activity
             android:name=".activity.UserProjectActivity"
-            android:label="@string/project">
+            android:label="@string/project"
+            android:parentActivityName=".activity.UserManagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.UserProjectActivity" />
                 <category android:name="android.intent.category.DEFAULT" />

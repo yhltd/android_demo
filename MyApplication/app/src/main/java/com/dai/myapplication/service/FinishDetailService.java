@@ -4,6 +4,7 @@ import com.dai.myapplication.dao.BaseDao;
 import com.dai.myapplication.entity.FinishDetail;
 
 import java.util.List;
+import java.util.Map;
 
 public class FinishDetailService {
 
@@ -17,8 +18,8 @@ public class FinishDetailService {
     }
 
     public boolean save(FinishDetail finishDetail){
-        String sql = "insert into finish_detail(user_name,type_name,day_num,day_price,finish_time,last_update_time,project_id)" +
-                "values(?,?,?,?,?,?,?)";
+        String sql = "insert into finish_detail(user_name,type_name,day_num,day_price,finish_time,last_update_time,project_id,finish_type)" +
+                "values(?,?,?,?,?,?,?,?)";
 
         baseDao = new BaseDao();
         long result = baseDao.executeOfId(sql,
@@ -28,7 +29,8 @@ public class FinishDetailService {
                 finishDetail.getDayPrice(),
                 finishDetail.getFinishTime(),
                 finishDetail.getLastFinishTime(),
-                finishDetail.getProjectId());
+                finishDetail.getProjectId(),
+                finishDetail.getFinishType());
 
         finishDetail.setId(Integer.parseInt(Long.toString(result)));
         return result > 0;
@@ -36,7 +38,7 @@ public class FinishDetailService {
 
     public boolean update(FinishDetail finishDetail){
         String sql = "update finish_detail set user_name = ?,type_name = ?,day_num = ?,day_price = ?," +
-                "finish_time = ?,last_update_time = ? where id = ?";
+                "finish_time = ?,last_update_time = ?,finish_type = ? where id = ?";
 
         baseDao = new BaseDao();
         return baseDao.execute(sql,
@@ -46,6 +48,7 @@ public class FinishDetailService {
                 finishDetail.getDayPrice(),
                 finishDetail.getFinishTime(),
                 finishDetail.getLastFinishTime(),
+                finishDetail.getFinishType(),
                 finishDetail.getId());
     }
 
@@ -54,5 +57,16 @@ public class FinishDetailService {
 
         baseDao = new BaseDao();
         return baseDao.execute(sql, id);
+    }
+
+    public boolean remove(Map<Integer, Integer> idMap) {
+        StringBuilder idStr = new StringBuilder();
+        for (Integer key : idMap.keySet()) {
+            idStr.append(idMap.get(key)).append(",");
+        }
+        String sql = "delete from finish_detail where id in (" + idStr.substring(0, idStr.length() - 1) + ")";
+
+        baseDao = new BaseDao();
+        return baseDao.execute(sql);
     }
 }

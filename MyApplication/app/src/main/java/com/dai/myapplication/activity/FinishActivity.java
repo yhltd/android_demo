@@ -27,14 +27,17 @@ import com.dai.myapplication.R;
 import com.dai.myapplication.entity.FinishDetail;
 import com.dai.myapplication.entity.UserInfo;
 import com.dai.myapplication.service.FinishDetailService;
+import com.dai.myapplication.utils.GsonUtil;
 import com.dai.myapplication.utils.StringUtils;
 import com.dai.myapplication.utils.ToastUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class FinishActivity extends AppCompatActivity {
@@ -51,6 +54,12 @@ public class FinishActivity extends AppCompatActivity {
 
     private EditText searchEdit;
 
+    private Map<Integer, Integer> idList;
+
+    private boolean isMultiChoice = false;
+    private FloatingActionButton insertBtn;
+    private FloatingActionButton deleteBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +67,9 @@ public class FinishActivity extends AppCompatActivity {
 
         MyApplication myApplication = (MyApplication) getApplication();
         userInfo = myApplication.getUserInfo();
+
+        insertBtn = findViewById(R.id.finish_insert);
+        deleteBtn = findViewById(R.id.finish_delete);
 
         listView = findViewById(R.id.finish_list);
 
@@ -162,56 +174,40 @@ public class FinishActivity extends AppCompatActivity {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(FinishActivity.this, FinishChangeActivity.class);
-                intent.putExtra("type", R.id.finish_update);
-                MyApplication myApplication = (MyApplication) getApplication();
-                myApplication.setObj(list.get(position));
-                startActivityForResult(intent, REQUEST_CODE_CHANG);
+                myOnItemClick(view, position);
             }
         };
+    }
+
+    private void myOnItemClick(View view, int position) {
+        if (isMultiChoice) {
+            if (view.getBackground() == null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    idList.put(position, list.get(position).getId());
+                    view.setBackground(getDrawable(R.drawable.background_primary));
+                }
+            } else {
+                view.setBackground(null);
+                idList.remove(position);
+            }
+        } else {
+            Intent intent = new Intent(FinishActivity.this, FinishChangeActivity.class);
+            intent.putExtra("type", R.id.finish_update);
+            MyApplication myApplication = (MyApplication) getApplication();
+            myApplication.setObj(list.get(position));
+            startActivityForResult(intent, REQUEST_CODE_CHANG);
+        }
     }
 
     private AdapterView.OnItemLongClickListener onItemLongClick() {
         return new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(FinishActivity.this);
-
-                Handler deleteHandler = new Handler(new Handler.Callback() {
-                    @Override
-                    public boolean handleMessage(@NonNull Message msg) {
-                        if ((boolean) msg.obj) {
-                            ToastUtil.show(FinishActivity.this, "删除成功");
-                            initList();
-                        }
-                        return true;
-                    }
-                });
-
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Message msg = new Message();
-                                msg.obj = finishDetailService.remove(list.get(position).getId());
-                                deleteHandler.sendMessage(msg);
-                            }
-                        }).start();
-                    }
-                });
-
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                builder.setMessage("确定删除吗？");
-                builder.setTitle("提示");
-                builder.show();
+                isMultiChoice = true;
+                insertBtn.setVisibility(View.GONE);
+                deleteBtn.setVisibility(View.VISIBLE);
+                idList = new HashMap<>();
+                myOnItemClick(view, position);
                 return true;
             }
         };
@@ -221,6 +217,49 @@ public class FinishActivity extends AppCompatActivity {
         Intent intent = new Intent(FinishActivity.this, FinishChangeActivity.class);
         intent.putExtra("type", R.id.finish_save);
         startActivityForResult(intent, REQUEST_CODE_CHANG);
+    }
+
+    public void onDeleteClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(FinishActivity.this);
+
+        Handler deleteHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                if ((boolean) msg.obj) {
+                    insertBtn.setVisibility(View.VISIBLE);
+                    deleteBtn.setVisibility(View.GONE);
+                    isMultiChoice = false;
+                    ToastUtil.show(FinishActivity.this, "删除成功");
+                    initList();
+                }
+                return true;
+            }
+        });
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Message msg = new Message();
+                        msg.obj = finishDetailService.remove(idList);
+                        deleteHandler.sendMessage(msg);
+                    }
+                }).start();
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setMessage("确定删除吗？");
+        builder.setTitle("提示");
+        builder.show();
     }
 
     @Override

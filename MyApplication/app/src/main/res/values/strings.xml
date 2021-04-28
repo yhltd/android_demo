@@ -74,4 +74,5 @@
     </string-array>
 
     <string name="project">项目</string>
+    <string name="attendance">考勤状态</string>
 </resources>
