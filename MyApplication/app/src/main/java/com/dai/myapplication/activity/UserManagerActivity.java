@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.SearchEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -38,7 +42,13 @@ public class UserManagerActivity extends AppCompatActivity {
 
     private List<UserInfo> list;
 
+    private List<UserInfo>newList;
+
     private ListView listView;
+
+    private EditText searchEdit;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,9 @@ public class UserManagerActivity extends AppCompatActivity {
         userInfo = myApplication.getUserInfo();
 
         listView = findViewById(R.id.user_manager_list);
+
+        searchEdit = findViewById(R.id.user_search);
+        searchEdit.addTextChangedListener(onSearchUser());
 
         initList();
     }
@@ -171,6 +184,65 @@ public class UserManagerActivity extends AppCompatActivity {
                 builder.setTitle("提示");
                 builder.show();
                 return true;
+            }
+        };
+    }
+
+    private TextWatcher onSearchUser(){
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                List<HashMap<String, Object>> data = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    if(text.equals("") || list.get(i).getUserName().contains(text)){
+                        HashMap<String, Object> item = new HashMap<>();
+                        item.put("userCode", list.get(i).getUserCode());
+                        item.put("userName", list.get(i).getUserName());
+                        data.add(item);
+                        UserInfo itemNew=new UserInfo();
+                        itemNew.setUserCode(list.get(i).getUserCode());
+                        newList.add(itemNew);
+                    }else{
+                        LinearLayout linearLayout= (LinearLayout)listView.getChildAt(0);
+                        //listView.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+//                SimpleAdapter adapter = new SimpleAdapter(UserManagerActivity.this,
+//                        data,
+//                        R.layout.user_manager_row,
+//                        new String[]{"userCode","userName"},
+//                        new int[]{R.id.manager_user_code,R.id.manager_user_name}) {
+//                    @Override
+//                    public View getView(int position, View convertView, ViewGroup parent) {
+//                        //final View view = super.getView(position, convertView, parent);
+////                        view.setTag(position);
+////                        return view;
+//
+//                        final LinearLayout view = (LinearLayout)super.getView(position, convertView, parent);
+//                        LinearLayout linearLayout= (LinearLayout)view.getChildAt(0);
+//                        linearLayout.setOnClickListener(onClick());
+//                        linearLayout.setOnLongClickListener(onLongClickListener());
+//                        linearLayout.setTag(position);
+//                        Button btn=(Button) view.getChildAt(1);
+//                        btn.setOnClickListener(onItemClick());
+//                        btn.setTag(position);
+//
+//                        return view;
+//                    }
+//                };
+//                listView.setAdapter(adapter);
             }
         };
     }
