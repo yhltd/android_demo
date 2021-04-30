@@ -1,6 +1,8 @@
 package com.dai.myapplication.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +12,8 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.dai.myapplication.MyApplication;
 import com.dai.myapplication.R;
@@ -48,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        checkNeedPermissions();
     }
 
     public View.OnClickListener onSignClick(){
@@ -118,5 +123,20 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void checkNeedPermissions(){
+        //判断是否开启权限
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED
+                ||ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED
+                ||ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED
+        ){
+            //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限返回的结果参数，在onRequestPermissionResult可以得知申请结果
+            ActivityCompat.requestPermissions(this,new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA
+            },1);
+        }
     }
 }

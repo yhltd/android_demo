@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyApplication</string>
+    <string name="app_name">工资结算系统</string>
 
     <string name="user_code">用户名</string>
     <string name="user_name">姓名</string>

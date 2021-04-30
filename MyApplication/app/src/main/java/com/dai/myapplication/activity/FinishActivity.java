@@ -95,18 +95,28 @@ public class FinishActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                int a=list.size();
+                int b=0;
                 String text = s.toString();
                 List<HashMap<String, Object>> data = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++) {
-                    if(text.equals("") || list.get(i).getUserName().contains(text)){
-                        HashMap<String, Object> item = new HashMap<>();
-                        item.put("user_name", list.get(i).getUserName());
-                        @SuppressLint("SimpleDateFormat")
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-                        item.put("finish_time", formatter.format(list.get(i).getFinishTime()));
-                        data.add(item);
+                if(text.equals("")){
+                    initList();
+                }else{
+                    for (int i = 0; i < a; i++) {
+                        if( list.get(b).getUserName().contains(text)){
+                            HashMap<String, Object> item = new HashMap<>();
+                            item.put("user_name", list.get(b).getUserName());
+                            @SuppressLint("SimpleDateFormat")
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                            item.put("finish_time", formatter.format(list.get(b).getFinishTime()));
+                            data.add(item);
+                            b=b+1;
+                        }else{
+                            list.remove(b);
+                        }
                     }
                 }
+
                 SimpleAdapter adapter = new SimpleAdapter(FinishActivity.this,
                         data,
                         R.layout.finish_detail_row,

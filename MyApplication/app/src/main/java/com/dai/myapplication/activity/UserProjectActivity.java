@@ -105,6 +105,7 @@ public class UserProjectActivity extends AppCompatActivity {
                             ToastUtil.show(UserProjectActivity.this, "修改成功");
                             Intent intent = new Intent(UserProjectActivity.this, UserManagerActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                         return true;
                     }

@@ -36,8 +36,6 @@
             android:layout_weight="1">
         </View>
     </LinearLayout>
-
-
     <Button
         android:text="更换项目"
         android:layout_width="wrap_content"

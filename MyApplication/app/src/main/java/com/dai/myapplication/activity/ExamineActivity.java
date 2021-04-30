@@ -77,16 +77,26 @@ public class ExamineActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                int a=list.size();
+                int b=0;
                 String text = s.toString();
                 List<HashMap<String, Object>> data = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++) {
-                    if(text.equals("") || list.get(i).getUserName().contains(text)){
-                        HashMap<String, Object> item = new HashMap<>();
-                        item.put("userName", list.get(i).getUserName());
-                        item.put("id", list.get(i).getId());
-                        data.add(item);
+                if(text.equals("")){
+                    initView();
+                }else{
+                    for (int i = 0; i < a; i++) {
+                        if( list.get(b).getUserName().contains(text)){
+                            HashMap<String, Object> item = new HashMap<>();
+                            item.put("userName", list.get(b).getUserName());
+                            item.put("id", list.get(b).getId());
+                            data.add(item);
+                            b=b+1;
+                        }else{
+                            list.remove(b);
+                        }
                     }
                 }
+
                 SimpleAdapter adapter = new SimpleAdapter(ExamineActivity.this,
                         data,
                         R.layout.register_examine_row,

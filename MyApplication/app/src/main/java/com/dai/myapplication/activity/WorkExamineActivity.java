@@ -9,16 +9,12 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -91,19 +87,37 @@ public class WorkExamineActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                //adapter.getCount()
+                int a=list.size();
+                int b=0;
                 String text = s.toString();
-                ListAdapter adapter = listView.getAdapter();
-                for (int i = 0; i < adapter.getCount(); i++) {
-                    HashMap<String, Object> itemMap = StringUtils.cast(adapter.getItem(i));
-                    View itemView = listView.getChildAt(i);
-                    if (text.equals("") ||
-                            (itemMap.get("type").toString().contains(text) ||
-                                    itemMap.get("team_name").toString().contains(text))) {
-                        itemView.setVisibility(View.VISIBLE);
-                    } else {
-                        itemView.setVisibility(View.GONE);
+                //ListAdapter adapter = listView.getAdapter();
+                List<HashMap<String, Object>> data = new ArrayList<>();
+                if(text.equals("")){
+                    initList();
+                }else{
+                    for (int i = 0; i <a; i++) {
+                        //View itemView = listView.getChildAt(i);
+                        if (list.get(b).getTName().contains(text) ||list.get(b).getTeamName().contains(text)) {
+                            //itemView.setVisibility(View.VISIBLE);
+                            HashMap<String, Object> item = new HashMap<>();
+                            item.put("type", list.get(b).getTName());
+                            item.put("team_name", list.get(b).getTeamName());
+                            data.add(item);
+                            b=b+1;
+                        } else {
+                            //itemView.setVisibility(View.GONE);
+                            list.remove(b);
+                        }
                     }
                 }
+                SimpleAdapter adapter = new SimpleAdapter(WorkExamineActivity.this,
+                        data,
+                        R.layout.work_examine_row,
+                        new String[]{"type", "team_name"},
+                        new int[]{R.id.work_type, R.id.work_team_name});
+
+                listView.setAdapter(adapter);
             }
         };
     }

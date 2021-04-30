@@ -7,27 +7,6 @@
     tools:context=".activity.UserManagerActivity"
     android:orientation="vertical">
 
-<!--    <NavigationView-->
-<!--        android:id="@+id/navigation_view"-->
-<!--        android:layout_width="350dp"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="left"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--        android:menu="@menu/user_manager_menu">-->
-
-<!--    </NavigationView>-->
-           
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        android:ellipsize="none"-->
-<!--        android:gravity="center"-->
-<!--        android:paddingBottom="5dp"-->
-<!--        android:paddingTop="5dp"-->
-<!--        android:singleLine="false"-->
-<!--        android:text="用户名"-->
-<!--        android:textSize="15.0sp" >-->
-<!--    </TextView>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -38,22 +17,50 @@
             android:layout_height="30dp"
             android:src="@drawable/search"/>
         <EditText
-            android:id="@+id/register_search"
+            android:id="@+id/user_search"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="50dp"
             android:hint="搜索姓名"/>
     </LinearLayout>
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/manager_user_code"-->
-<!--            android:paddingLeft="15dp"-->
-<!--            android:textColor="@color/main_text"-->
-<!--            android:textSize="16sp"-->
-<!--            android:text="用户名                                 姓名"  />-->
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/border_bottom">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:textColor="@color/main_text"
+            android:textSize="18sp"
+            android:text="@string/user_code"
+            android:textStyle="bold"
+            android:paddingStart="15dp"
+            tools:ignore="RtlSymmetry" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:textColor="@color/main_text"
+            android:textSize="18sp"
+            android:text="@string/user_name"
+            android:textStyle="bold"
+            android:paddingEnd="15dp"
+            tools:ignore="RtlSymmetry" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+        </View>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/user_manager_list"

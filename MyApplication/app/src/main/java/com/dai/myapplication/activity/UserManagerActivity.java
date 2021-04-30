@@ -42,13 +42,9 @@ public class UserManagerActivity extends AppCompatActivity {
 
     private List<UserInfo> list;
 
-    //private List<UserInfo>newList;
-
     private ListView listView;
 
     private EditText searchEdit;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,8 +56,8 @@ public class UserManagerActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.user_manager_list);
 
-        //searchEdit = findViewById(R.id.user_search);
-        //searchEdit.addTextChangedListener(onSearchUser());
+        searchEdit = findViewById(R.id.user_search);
+        searchEdit.addTextChangedListener(onSearchUser());
 
         initList();
     }
@@ -108,11 +104,9 @@ public class UserManagerActivity extends AppCompatActivity {
                         return view;
                     }
                 };
-
                 Message msg = new Message();
                 msg.obj = adapter;
                 listLoadHandler.sendMessage(msg);
-
             }
         }).start();
     }
@@ -138,6 +132,7 @@ public class UserManagerActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserManagerActivity.this, UserProjectActivity.class);
                 intent.putExtra("user_info", GsonUtil.toJson(list.get(position)));
                 startActivity(intent);
+                finish();
             }
         };
     }
@@ -188,7 +183,7 @@ public class UserManagerActivity extends AppCompatActivity {
         };
     }
 
-    private TextWatcher onSearchUser(){
+    private TextWatcher onSearchUser() {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -202,51 +197,49 @@ public class UserManagerActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                int a=list.size();
+                int b=0;
                 String text = s.toString();
                 List<HashMap<String, Object>> data = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++) {
-                    if(text.equals("") || list.get(i).getUserName().contains(text)){
-                        HashMap<String, Object> item = new HashMap<>();
-                        item.put("userCode", list.get(i).getUserCode());
-                        item.put("userName", list.get(i).getUserName());
-                        data.add(item);
-//                        UserInfo itemNew=new UserInfo();
-//                        itemNew.setUserCode(list.get(i).getUserCode());
-//                        newList.add(itemNew);
+                if(text.equals("")){
+                    initList();
+                }else{
+                    for (int i = 0; i <a; i++) {
+                        if ( list.get(b).getUserName().contains(text)) {
+                            HashMap<String, Object> item = new HashMap<>();
+                            item.put("userCode", list.get(b).getUserCode());
+                            item.put("userName", list.get(b).getUserName());
+                            data.add(item);
+                            b=b+1;
+                        }else{
+                            list.remove(b);
+                        }
                     }
-//                    else{
-//                        LinearLayout linearLayout= (LinearLayout)listView.getChildAt(0);
-//                        //listView.setVisibility(View.INVISIBLE);
-//                    }
                 }
 
-                SimpleAdapter adapter = new SimpleAdapter(UserManagerActivity.this,
-                        data,
-                        R.layout.user_manager_row,
-                        new String[]{"userCode","userName"},
-                        new int[]{R.id.manager_user_code,R.id.manager_user_name}) {
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        //final View view = super.getView(position, convertView, parent);
-//                        view.setTag(position);
-//                        return view;
+                    SimpleAdapter adapter = new SimpleAdapter(UserManagerActivity.this,
+                            data,
+                            R.layout.user_manager_row,
+                            new String[]{"userCode", "userName"},
+                            new int[]{R.id.manager_user_code, R.id.manager_user_name}) {
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            final LinearLayout view = (LinearLayout) super.getView(position, convertView, parent);
+                            LinearLayout linearLayout = (LinearLayout) view.getChildAt(0);
+                            linearLayout.setOnClickListener(onClick());
+                            linearLayout.setOnLongClickListener(onLongClickListener());
+                            linearLayout.setTag(position);
+                            Button btn = (Button) view.getChildAt(1);
+                            btn.setOnClickListener(onItemClick());
+                            btn.setTag(position);
+                            return view;
+                        }
+                    };
+                    listView.setAdapter(adapter);
+                }
+            };
+        }
 
-                        final LinearLayout view = (LinearLayout)super.getView(position, convertView, parent);
-                        LinearLayout linearLayout= (LinearLayout)view.getChildAt(0);
-                        linearLayout.setOnClickListener(onClick());
-                        linearLayout.setOnLongClickListener(onLongClickListener());
-                        linearLayout.setTag(position);
-                        Button btn=(Button) view.getChildAt(1);
-                        btn.setOnClickListener(onItemClick());
-                        btn.setTag(position);
-
-                        return view;
-                    }
-                };
-                listView.setAdapter(adapter);
-            }
-        };
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
