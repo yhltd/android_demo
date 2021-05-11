@@ -4,6 +4,7 @@ import com.dai.myapplication.dao.BaseDao;
 import com.dai.myapplication.entity.ProjectInfo;
 import com.dai.myapplication.entity.UserInfo;
 
+import java.util.Date;
 import java.util.List;
 
 public class ProjectService {
@@ -42,4 +43,9 @@ public class ProjectService {
         return base.execute(sql,projectId,id);
     }
 
+    public boolean addUpdateProject(int userId, int projectId, Date riqi){
+        String sql="insert into user_project(user_id,project_id,riqi) values(?,?,?)";
+        base=new BaseDao();
+        return base.execute(sql,projectId,userId,riqi);
+    }
 }

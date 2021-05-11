@@ -23,6 +23,7 @@ import com.dai.myapplication.utils.StringUtils;
 import com.dai.myapplication.utils.ToastUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -120,6 +121,8 @@ public class UserProjectActivity extends AppCompatActivity {
                                 Message msg = new Message();
                                 msg.obj = projectService.updateProject(list.get(position).getId(),userInfo.getId());
                                 deleteHandler.sendMessage(msg);
+                                Date now = new Date();
+                                projectService.addUpdateProject(userInfo.getId(),list.get(position).getId(),now);
                             }
                         }).start();
                     }

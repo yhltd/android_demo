@@ -106,6 +106,7 @@ public class ExamineSubmitActivity extends AppCompatActivity {
                     public void run() {
                         userInfoService = new UserInfoService();
                         if (userInfoService.registerUser(userInfo)) {
+
                             ToastUtil.show(ExamineSubmitActivity.this, "审核成功");
                             finish();
                         }else{

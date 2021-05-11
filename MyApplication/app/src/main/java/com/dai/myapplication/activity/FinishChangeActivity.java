@@ -66,7 +66,7 @@ public class FinishChangeActivity extends AppCompatActivity {
         userInfo = myApplication.getUserInfo();
 
         finishDetailService = new FinishDetailService();
-
+        
         Intent intent = getIntent();
         int id = intent.getIntExtra("type", 0);
         switch (id) {
@@ -96,7 +96,9 @@ public class FinishChangeActivity extends AppCompatActivity {
         dayPriceEdit = findViewById(R.id.finish_day_price);
         sumEdit = findViewById(R.id.finish_sum);
         typeSpinner = findViewById(R.id.finish_type);
-        typeSpinner.setSelection(getFinishTypePosition(finishDetail.getFinishType()));
+        if(finishDetail.getFinishType()!=null){
+            typeSpinner.setSelection(getFinishTypePosition(finishDetail.getFinishType()));
+        }
 
         //设置readonly
         MyApplication.setEditTextReadOnly(userTypeEdit, sumEdit);

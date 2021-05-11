@@ -16,9 +16,9 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/wages"
+        android:icon="@drawable/gongzi_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/wages"
+        android:roundIcon="@drawable/gongzi_icon"
         android:supportsRtl="true"
         android:process=":remote"
         android:theme="@style/Theme.MyApplication"
